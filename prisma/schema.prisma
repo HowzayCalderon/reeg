@@ -8,16 +8,22 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   firstname String
-  lastname String
-  email String @unique 
+  lastname  String
+  email     String @unique
+}
+
+model Class {
+  id       Int       @id
+  students Student[]
 }
 
 model Student {
-  id Int @id @default(autoincrement())
-  firstname String 
-  lastname String 
-  gradelevel Int 
-  class String 
+  id         Int    @id @default(autoincrement())
+  firstname  String
+  lastname   String
+  gradelevel Int
+  Class      Class? @relation(fields: [classId], references: [id])
+  classId    Int?
 }
