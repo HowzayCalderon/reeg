@@ -8,22 +8,34 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   firstname String
   lastname  String
-  email     String @unique
+  email     String   @unique
+  student   Student?
+  teacher   Teacher?
 }
 
-model Class {
-  id       Int       @id
-  students Student[]
+model Teacher {
+  id        Int     @id @default(autoincrement())
+  classlist Class[]
+  userId    Int     @unique
+  user      User    @relation(fields: [userId], references: [id])
 }
 
 model Student {
-  id         Int    @id @default(autoincrement())
-  firstname  String
-  lastname   String
+  id         Int     @id @default(autoincrement())
+  userId     Int     @unique
+  user       User    @relation(fields: [userId], references: [id])
   gradelevel Int
-  Class      Class? @relation(fields: [classId], references: [id])
+  Class      Class[]
   classId    Int?
+}
+
+model Class {
+  id        Int       @id
+  classname String
+  students  Student[]
+  Teacher   Teacher?  @relation(fields: [teacherId], references: [id])
+  teacherId Int?
 }
