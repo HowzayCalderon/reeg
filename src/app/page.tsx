@@ -7,5 +7,3 @@ export default function Home() {
     </div>
   )
 }
-
-// might have to import globals.css into each file for tailwind to work
