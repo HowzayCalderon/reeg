@@ -16,10 +16,10 @@ export const options: NextAuthOptions = {
         // CredentialsProvider({
         //     name: "Credentials",
         //     credentials: {
-        //         username: {
-        //             label: "Username",
+        //         email: {
+        //             label: "Email",
         //             type: "text",
-        //             placeholder: "coolStudent22"
+        //             placeholder: "johndoe@email.com"
         //         },password: {
         //             label: "Password:",
         //             type: "password"
