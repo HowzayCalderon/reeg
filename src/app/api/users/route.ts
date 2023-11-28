@@ -5,10 +5,15 @@ import Email from "next-auth/providers/email";
 
 const prisma = new PrismaClient()
 
-export async function GET(request: NextRequest, response: NextResponse){
-   request.json()
-        
-    
+export async function GET(request: Request, response: NextResponse){
+    try{
+        const data =  await request.json()
+        console.log(data)
+    }catch(e){
+        console.error(e)
+    }
+
+    return new NextResponse("algo")
 }
 
 export async function POST(request: NextRequest, response: NextResponse){
