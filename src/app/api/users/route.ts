@@ -1,32 +1,49 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { headers } from 'next/headers'
-import Email from "next-auth/providers/email";
 
-const prisma = new PrismaClient()
 
-export async function GET(request: Request, response: NextResponse){
-    try{
-        const data =  await request.json()
-        console.log(data)
-    }catch(e){
-        console.error(e)
+export const prisma = new PrismaClient()
+
+
+export async function GET(request: NextRequest, response: NextResponse){
+
+        const searchParams = request.nextUrl.searchParams
+        const emailname = searchParams.get('email')
+        const getUser = await prisma.user.findUnique({
+            where: {
+                email: emailname as string 
+            }
+        })
+        
+        console.log(getUser)
+    if(getUser){
+        return new Response("User Exists")
+    }else{
+        return new Response("User does not exist")
     }
-
-    return new NextResponse("algo")
 }
 
 export async function POST(request: NextRequest, response: NextResponse){
-    request.json()
-    .then(async (res) => {
-        await prisma.user.create({
-            data: {
-                email: res.email,
-                name: res.name
-            }
-        })
+    
+    const data = await request.json()
+    const createUser = await prisma.user.create({
+        data:{
+            email: data.email,
+            name: data.name
+        }
     })
-    return new Response("New User Created")
+    return response.blob
+}
+
+export async function DELETE(request: NextRequest, response: NextResponse){
+    const searchParams = request.nextUrl.searchParams
+    const emailname = searchParams.get('email')
+    const deleteUser = await prisma.user.delete({
+        where: {
+            email: emailname as string
+        }
+    })
+    return new Response("It has been done")
 }
 
 // figure out how to extract username from request and insert it into getUser function
