@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -7,20 +8,23 @@ export const prisma = new PrismaClient()
 
 export async function GET(request: NextRequest, response: NextResponse){
 
-        const searchParams = request.nextUrl.searchParams
-        const emailname = searchParams.get('email')
+    try{
+        const searchParams = request.nextUrl.searchParams;
+        const getEmail = searchParams.get('email')
         const getUser = await prisma.user.findUnique({
             where: {
-                email: emailname as string 
+                email: getEmail as string 
             }
         })
-        
-        console.log(getUser)
-    if(getUser){
-        return new Response("User Exists")
-    }else{
-        return new Response("User does not exist")
+        return new Response(getUser?.email)
+    }catch(e){
+        console.error(e + ' this is the error message')
+        return new Response("An error occured")
+
     }
+        
+
+        
 }
 
 export async function POST(request: NextRequest, response: NextResponse){
@@ -32,7 +36,7 @@ export async function POST(request: NextRequest, response: NextResponse){
             name: data.name
         }
     })
-    return response.blob
+    return new Response("User created")
 }
 
 export async function DELETE(request: NextRequest, response: NextResponse){
@@ -46,4 +50,4 @@ export async function DELETE(request: NextRequest, response: NextResponse){
     return new Response("It has been done")
 }
 
-// figure out how to extract username from request and insert it into getUser function
+// Ensure each function has a proper response and is catching errors
