@@ -16,10 +16,32 @@ export async function GET(request: NextRequest, response: NextResponse){
                 email: getEmail as string 
             }
         })
-        return new Response(getUser?.email)
+
+        const myOptions = {
+            status: 200,
+            statusText: "OK"
+        }
+
+        let bodyMessage: string | null = ''
+
+        if(getUser == null){
+            myOptions.status = 200,
+            myOptions.statusText = "OK"
+            bodyMessage = "User Does Not Exist"
+        }else if(getUser !== null){
+            bodyMessage = getUser.email
+        }
+
+        return new Response(bodyMessage, myOptions)
     }catch(e){
-        console.error(e + ' this is the error message')
-        return new Response("An error occured")
+
+        const myOptions = {
+            status: 400,
+            statusText: "Bad Request"
+        }
+        let bodyMessage = "Must use proper syntax"
+        
+        return new Response(bodyMessage, myOptions)
 
     }
         
@@ -28,7 +50,7 @@ export async function GET(request: NextRequest, response: NextResponse){
 }
 
 export async function POST(request: NextRequest, response: NextResponse){
-    
+    try{
     const data = await request.json()
     const createUser = await prisma.user.create({
         data:{
@@ -36,7 +58,17 @@ export async function POST(request: NextRequest, response: NextResponse){
             name: data.name
         }
     })
-    return new Response("User created")
+    console.log(createUser)
+        const myOptions = {
+            status: 201,
+            statText: "OK"
+        }
+
+    return new Response("User created", myOptions)
+    }catch(e){
+        return new Response("Error")
+
+    }
 }
 
 export async function DELETE(request: NextRequest, response: NextResponse){
