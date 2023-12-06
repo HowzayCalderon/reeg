@@ -10,29 +10,33 @@ export async function GET(request: NextRequest, response: NextResponse){
 
     try{
         const searchParams = request.nextUrl.searchParams;
-        const getEmail = searchParams.get('email')
-        const getUser = await prisma.user.findUnique({
-            where: {
-                email: getEmail as string 
-            }
-        })
+        const getEmail: string | null = searchParams.get('email');
+        const resOptions = { status: 200, statusText: "OK"};
+        let resMessage: string = "";
 
-        const myOptions = {
-            status: 200,
-            statusText: "OK"
+        if(getEmail !== null){
+            const getUser = await prisma.user.findUnique({
+                where: {
+                    email: getEmail as string 
+                }
+            })
+            resMessage = "User Exists"
+
+            return new Response(resMessage, resOptions)
+
+        }else if(getEmail == null){
+
+            throw new Error("Insert error stuff here")
         }
+        // if(getUser == null){
+        //     myOptions.status = 200,
+        //     myOptions.statusText = "OK"
+        //     bodyMessage = "User Does Not Exist"
+        // }else if(getUser !== null){
+        //     bodyMessage = getUser.email
+        // }
 
-        let bodyMessage: string | null = ''
-
-        if(getUser == null){
-            myOptions.status = 200,
-            myOptions.statusText = "OK"
-            bodyMessage = "User Does Not Exist"
-        }else if(getUser !== null){
-            bodyMessage = getUser.email
-        }
-
-        return new Response(bodyMessage, myOptions)
+        // return new Response(bodyMessage, myOptions)
     }catch(e){
 
         const myOptions = {
@@ -58,28 +62,46 @@ export async function POST(request: NextRequest, response: NextResponse){
             name: data.name
         }
     })
-    console.log(createUser)
         const myOptions = {
             status: 201,
-            statText: "OK"
+            statusText: "Created"
         }
 
     return new Response("User created", myOptions)
+
     }catch(e){
-        return new Response("Error")
+        const myOptions = {
+            status: 400,
+            statusText: "Bad Request"
+        }
+        let resBody = ""
+
+        if(e instanceof SyntaxError){
+            resBody = "Improper Syntax"
+        }
+
+        return new Response(resBody, myOptions)
 
     }
 }
 
+// ****** Write conditionals for if a field is missing or wrong format in try block ******
+
 export async function DELETE(request: NextRequest, response: NextResponse){
-    const searchParams = request.nextUrl.searchParams
-    const emailname = searchParams.get('email')
-    const deleteUser = await prisma.user.delete({
-        where: {
-            email: emailname as string
-        }
-    })
+    try{
+        const searchParams = request.nextUrl.searchParams
+        const getEmail: string | null = searchParams.get('email')
+        const deleteUser = await prisma.user.delete({
+            where: {
+                email: getEmail as string
+            }
+        })
     return new Response("It has been done")
+
+    }catch(e){
+
+        return new Response("You failed")
+    }
 }
 
 // Ensure each function has a proper response and is catching errors
