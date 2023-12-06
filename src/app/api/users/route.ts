@@ -13,8 +13,9 @@ export async function GET(request: NextRequest, response: NextResponse){
         const getEmail: string | null = searchParams.get('email');
         const resOptions = { status: 200, statusText: "OK"};
         let resMessage: string = "";
+        let regex = /[A-Za-z0-9]+@[A-Za-z0-9]+\.com/i;
 
-        if(getEmail !== null){
+        if(getEmail !== null && regex.test(getEmail)){
             const getUser = await prisma.user.findUnique({
                 where: {
                     email: getEmail as string 
@@ -24,19 +25,11 @@ export async function GET(request: NextRequest, response: NextResponse){
 
             return new Response(resMessage, resOptions)
 
-        }else if(getEmail == null){
+        }else if(getEmail == null || regex.test(getEmail) == false){
 
             throw new Error("Insert error stuff here")
         }
-        // if(getUser == null){
-        //     myOptions.status = 200,
-        //     myOptions.statusText = "OK"
-        //     bodyMessage = "User Does Not Exist"
-        // }else if(getUser !== null){
-        //     bodyMessage = getUser.email
-        // }
 
-        // return new Response(bodyMessage, myOptions)
     }catch(e){
 
         const myOptions = {
