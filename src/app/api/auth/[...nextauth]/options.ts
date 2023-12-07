@@ -13,23 +13,24 @@ export const options: NextAuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         }),
-        // CredentialsProvider({
-        //     name: "Credentials",
-        //     credentials: {
-        //         email: {
-        //             label: "Email",
-        //             type: "text",
-        //             placeholder: "johndoe@email.com"
-        //         },password: {
-        //             label: "Password:",
-        //             type: "password"
-        //         }
-        //     },
-        //     async authorize(credentials, req) {
-        //         let user = null; 
-        //         return user;
-        //     }
-        // })
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                email: {
+                    label: "Email",
+                    type: "text",
+                    placeholder: "johndoe@email.com"
+                },password: {
+                    label: "Password:",
+                    type: "password",
+                    placeholder: "Password"
+                }
+            },
+            async authorize(credentials, req) {
+                let user = null; 
+                return user;
+            }
+        })
     ],
     
 }
