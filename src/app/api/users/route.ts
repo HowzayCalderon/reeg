@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import { error } from "console";
+import { prisma } from "../auth/[...nextauth]/options"
 import { NextRequest, NextResponse } from "next/server";
 import { validationError } from "@/lib/errors";
 
 
-export const prisma = new PrismaClient()
+
 
 
 export async function GET(request: NextRequest, response: NextResponse){
@@ -28,12 +27,12 @@ export async function GET(request: NextRequest, response: NextResponse){
 
         }else if(getEmail == null || regex.test(getEmail) == false){
 
-            throw new validationError("Missing Field or Improper Syntax")
+            throw new validationError("Missing Field or Improper Syntax", 400)
         }
 
     }catch(err: any){
 
-        const myOptions = {status: 400, statusText: "Bad Request"}
+        const myOptions = {status: err.statusCode, statusText: "Bad Request"}
         let resMessage = err.message;
         console.error(err.message);
         console.error(err.name);
