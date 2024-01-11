@@ -1,9 +1,15 @@
-import React from 'react'
+'use client'
+
+import { Session } from "next-auth"
+import { SessionProvider } from "next-auth/react"
+
+interface Props {
+  session: Session | null
+}
 
 export default function Home() {
-  return (
-    <div>
-      <h1 className='bg-black text-white'>Hello Jose</h1>
-    </div>
-  )
-}
+    <SessionProvider>
+      
+    </SessionProvider>
+   
+  }
