@@ -1,6 +1,6 @@
 import { prisma } from "../auth/[...nextauth]/options"
 import { NextRequest, NextResponse } from "next/server";
-import { validationError } from "@/lib/errors";
+import { validationError } from "../../lib/errors";
 
 
 

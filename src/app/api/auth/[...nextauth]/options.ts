@@ -17,6 +17,14 @@ export const options: NextAuthOptions = {
         }),
         
     ],
+    callbacks: {
+        async jwt({token}){
+            return token
+        },
+        async session({session, user, token }){
+            return session
+        }
+    }
 }
 
 /* write getUserFromDB function in Services file for credentials authorize function, 
