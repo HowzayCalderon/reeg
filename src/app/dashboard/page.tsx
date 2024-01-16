@@ -11,10 +11,10 @@ const page = async () => {
     redirect('/api/auth/signin?callbackUrl=/dashboard')
   }
   return (
-    <div>
+    <>
       Protected Page
       <p>{session.user?.email}</p>
-    </div>
+    </>
 
   )
 }
