@@ -27,7 +27,5 @@ export const options: NextAuthOptions = {
     }
 }
 
-/* write getUserFromDB function in Services file for credentials authorize function, 
-refer to next-auth documentation if confused */
 
 /*  FINISH WRITING CALL BACK FUNCTIONS, CONTINUE WATCHING CREDENTIALS TUTORIAL*/
