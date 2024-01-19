@@ -16,10 +16,11 @@ export const options: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         }),
         CredentialsProvider({
-            name: "Username",
+            id: 'credentials',
+            name: "Email",
             credentials: {
-                username: {
-                    label: "Username",
+                email: {
+                    label: "Email",
                     type: "text",
                     placeholder: "johnDoe"
                 },
@@ -29,20 +30,22 @@ export const options: NextAuthOptions = {
                     placeholder: "Enter Password"
                 }
             },
-            async authorize(credentials){
+            async authorize(credentials, req){
                 try{
                     const foundUser = await prisma.user.findUnique({
                         where: {
-                            email: credentials?.username
+                            email: credentials?.email
                         }
                     })
-                    let match = null
+                    let match 
                     if(foundUser){
                         console.log("User Exists")
-                        match = await bcrypt.compare(credentials?.password as string, foundUser?.password)
+                        // match = await bcrypt.compare(credentials?.password as string, foundUser?.password)
+                        match = foundUser.password == credentials?.password
                     };
                     if(match){
                         console.log("Good Pass")
+                        return foundUser
                     }
     
                     
@@ -54,7 +57,10 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({token}){
+        async jwt({token, user}){
+            if(user){
+                token.id = user.id
+            }
             return token
         },
         async session({session, user, token }){
@@ -64,4 +70,6 @@ export const options: NextAuthOptions = {
 }
 
 
-// STILL NEED TO CREATE EMAIL VERIFICATION, CUSTOM SIGN IN FORM AND CREATE USER FORM, NEED TO TEST CREDENTIALS PROVIDER SIGN IN
+// STILL NEED TO CREATE EMAIL VERIFICATION, CUSTOM SIGN IN FORM AND CREATE USER FORM, MAKE CREDENTIALS PROVIDER REDIRECT TO MAIN PAGE AFTER SIGN IN
+
+// test user account email: pendejo@pendejo.com, password: 1234567
