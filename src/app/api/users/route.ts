@@ -10,25 +10,26 @@ export async function GET(request: NextRequest, response: NextResponse){
 
     try{
         const searchParams = request.nextUrl.searchParams;
-        const getEmail: string | null = searchParams.get('email');
+        const getUserName: string | null = searchParams.get('username');
         const resOptions = { status: 200, statusText: "OK"};
         let resMessage: string = "";
-        let regex = /[A-Za-z0-9]+@[A-Za-z0-9]+\.com/i;
+        // let regex = /[A-Za-z0-9]+@[A-Za-z0-9]+\.com/i;
 
-        if(getEmail !== null && regex.test(getEmail)){
+        if(getUserName !== null /*&& regex.test(getUserName)*/){
             const getUser = await prisma.user.findUnique({
                 where: {
-                    email: getEmail as string 
+                    name: getUserName as string 
                 }
             })
             resMessage = "User Exists"
 
             return new Response(resMessage, resOptions)
 
-        }else if(getEmail == null || regex.test(getEmail) == false){
-
-            throw new validationError("Missing Field or Improper Syntax", 400)
         }
+        // else if(getUserName == null || regex.test(getUserName) == false){
+
+        //     throw new validationError("Missing Field or Improper Syntax", 400)
+        // }
 
     }catch(err: any){
 
@@ -51,7 +52,6 @@ export async function POST(request: NextRequest, response: NextResponse){
     const data = await request.json()
     const createUser = await prisma.user.create({
         data:{
-            email: data.email,
             name: data.name,
             password: data.password
         }
@@ -84,10 +84,10 @@ export async function POST(request: NextRequest, response: NextResponse){
 export async function DELETE(request: NextRequest, response: NextResponse){
     try{
         const searchParams = request.nextUrl.searchParams
-        const getEmail: string | null = searchParams.get('email')
+        const getUserName: string | null = searchParams.get('email')
         const deleteUser = await prisma.user.delete({
             where: {
-                email: getEmail as string
+                name: getUserName as string
             }
         })
     return new Response("It has been done")

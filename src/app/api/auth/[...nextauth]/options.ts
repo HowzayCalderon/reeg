@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt'
+import { redirect } from "next/navigation";
 
 export const prisma = new PrismaClient()
 
@@ -17,10 +18,10 @@ export const options: NextAuthOptions = {
         }),
         CredentialsProvider({
             id: 'credentials',
-            name: "Email",
+            name: "Username",
             credentials: {
-                email: {
-                    label: "Email",
+                username: {
+                    label: "Username",
                     type: "text",
                     placeholder: "johnDoe"
                 },
@@ -30,11 +31,11 @@ export const options: NextAuthOptions = {
                     placeholder: "Enter Password"
                 }
             },
-            async authorize(credentials, req){
+            async authorize(credentials){
                 try{
                     const foundUser = await prisma.user.findUnique({
                         where: {
-                            email: credentials?.email
+                            name: credentials?.username
                         }
                     })
                     let match 
@@ -65,6 +66,9 @@ export const options: NextAuthOptions = {
         },
         async session({session, user, token }){
             return session
+        },
+        async signIn({}){
+            return true
         }
     }
 }
@@ -72,4 +76,4 @@ export const options: NextAuthOptions = {
 
 // STILL NEED TO CREATE EMAIL VERIFICATION, CUSTOM SIGN IN FORM AND CREATE USER FORM, MAKE CREDENTIALS PROVIDER REDIRECT TO MAIN PAGE AFTER SIGN IN
 
-// test user account email: pendejo@pendejo.com, password: 1234567
+// test user account email: Jose, password: test
