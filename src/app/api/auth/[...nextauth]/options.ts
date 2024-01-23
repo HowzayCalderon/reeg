@@ -74,6 +74,6 @@ export const options: NextAuthOptions = {
 }
 
 
-// STILL NEED TO CREATE EMAIL VERIFICATION, CUSTOM SIGN IN FORM AND CREATE USER FORM,
+//  CUSTOM SIGN IN FORM AND CREATE USER FORM,
 
 // test user account email: Jose, password: test
