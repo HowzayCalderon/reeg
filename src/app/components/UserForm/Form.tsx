@@ -2,6 +2,7 @@
 
 import React from "react"
 import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 const Form = () => {
     const pathname = usePathname()
@@ -15,6 +16,7 @@ const Form = () => {
                 {pathname == '/signup' ? <label>Confirm Password</label> : null}
                 {pathname == '/signup' ? (<input className='border-b-2 border-black'id="confirmPassword" required={true} type="password" name="confirmPassword" placeholder="Retype Password"/>) : null}
                 {pathname == '/signup' ? <input type="submit" value={'Sign Up'}/> : <input className="border-2" type="submit" value={'Sign In'}/>}
+                {pathname == '/signin' ? <Link href={'/signup'}>Sign Up</Link> : null}
             </form>
         </>
     )
