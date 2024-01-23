@@ -7,13 +7,14 @@ const Form = () => {
     const pathname = usePathname()
     return (
         <>
-            <form>
+            <form className="flex flex-col">
                 <label>Username</label>
-                <input id='username' type='username' name="username" required={true} placeholder="coolUsername"/>
+                <input className=' border-b-2 border-black'id='username' type='username' name="username" required={true} placeholder="Enter Username"/>
                 <label>Password</label>
-                <input id="password" type='password' name="password" required={true} placeholder="secretPassword"/>
-                {pathname == '/signup' ? <input id="confirmPassword" required={true} type="password" name="confirmPassword" placeholder="Confirm Password"/> : null}
-                {pathname == '/signup' ? <input type="submit" value={'Sign Up'}/> : <input type="submit" value={'Sign In'}/>}
+                <input className="border-b-2 border-black" id="password" type='password' name="password" required={true} placeholder="Enter Password"/>
+                {pathname == '/signup' ? <label>Confirm Password</label> : null}
+                {pathname == '/signup' ? (<input className='border-b-2 border-black'id="confirmPassword" required={true} type="password" name="confirmPassword" placeholder="Retype Password"/>) : null}
+                {pathname == '/signup' ? <input type="submit" value={'Sign Up'}/> : <input className="border-2" type="submit" value={'Sign In'}/>}
             </form>
         </>
     )

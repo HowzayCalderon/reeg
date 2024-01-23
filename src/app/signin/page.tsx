@@ -3,8 +3,10 @@ import Form from "@/components/UserForm/Form";
 
 const SignIn = () => {
     return (
-        <div>
-            <Form/>
+        <div className="flex justify-center items-center h-screen">
+            <div className="w-1/2">
+                <Form/>
+            </div>
         </div>
     )
 }
