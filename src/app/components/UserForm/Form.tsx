@@ -4,13 +4,18 @@ import React, { useState } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { getCsrfToken } from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 const Form = () => {
     const pathname = usePathname()
     const router = useRouter()
-    const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({
+        name: '',
+        password: ''
+    })
+
     const [errorMessage, setErrorMessage] = useState('')
+
     const handleChange = (e: any) => {
         const value = e?.target?.value
         const name = e?.target?.name
@@ -18,6 +23,7 @@ const Form = () => {
             ...prevState,
             [name]: value,
         }))
+        console.log(formData)
     }
 
     
@@ -38,15 +44,23 @@ const Form = () => {
                 setErrorMessage(response.message);
             }else{
                 router.refresh()
-                router.push('/')
+                router.push('/signin')
             }
+        }
+        if(pathname == '/signin'){
+            console.log(formData)
+            const result = await signIn("credentials", {
+                username: formData.name,
+                password: formData.password,
+                redirect: true,
+                callbackUrl: "/dashboard"
+            })
         }
     }
 
     return (
         <>
-            <form method="post" action={pathname == '/signin' ? "/api/auth/callback/credentials": "/api/users"} className="flex flex-col" onSubmit={handleSubmit}>
-                {/* <input name='csrfToken' type="hidden" defaultValue={csrfToken} /> */}
+            <form method="post"  className="flex flex-col" onSubmit={handleSubmit}>
                 <label>Username</label>
                 <input className=' border-b-2 border-black'id='name' type='name' name="name" required={true} onChange={handleChange}  placeholder="Enter Username"/>
                 <label>Password</label>
@@ -64,4 +78,4 @@ const Form = () => {
 export default Form
 
 
-// start writing logic for sign in form, write logic to match password and confirm password
+//  write logic to match password and confirm password, add password encryption, add error messages, client side username validation, and client side password validation
