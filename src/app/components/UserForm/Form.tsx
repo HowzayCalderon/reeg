@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { getCsrfToken } from "next-auth/react"
 
 const Form = () => {
     const pathname = usePathname()
@@ -18,6 +19,8 @@ const Form = () => {
             [name]: value,
         }))
     }
+
+    
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -42,7 +45,8 @@ const Form = () => {
 
     return (
         <>
-            <form method="post" className="flex flex-col" onSubmit={handleSubmit}>
+            <form method="post" action={pathname == '/signin' ? "/api/auth/callback/credentials": "/api/users"} className="flex flex-col" onSubmit={handleSubmit}>
+                {/* <input name='csrfToken' type="hidden" defaultValue={csrfToken} /> */}
                 <label>Username</label>
                 <input className=' border-b-2 border-black'id='name' type='name' name="name" required={true} onChange={handleChange}  placeholder="Enter Username"/>
                 <label>Password</label>
@@ -50,8 +54,8 @@ const Form = () => {
                 {pathname == '/signup' ? <label>Confirm Password</label> : null}
                 {pathname == '/signup' ? (<input className='border-b-2 border-black'id="confirmPassword" required={true} type="password" name="confirmPassword" placeholder="Retype Password"/>) : null}
                 {pathname == '/signup' ? <input  className='border-2' type="submit" value={'Sign Up'}/> : <input className="border-2" type="submit" value={'Sign In'}/>}
-                {pathname == '/signin' ? <Link href={'/signup'}>Sign Up</Link> : null}
             </form>
+            {pathname == '/signin' ? <Link href={'/signup'}>Sign Up</Link> : null}
             <p>{errorMessage}</p>
         </>
     )
@@ -60,4 +64,4 @@ const Form = () => {
 export default Form
 
 
-// need to fix json stringify error, write logic to match password and confirm password
+// start writing logic for sign in form, write logic to match password and confirm password
