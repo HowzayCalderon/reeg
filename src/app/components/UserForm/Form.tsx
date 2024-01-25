@@ -11,7 +11,8 @@ const Form = () => {
     const router = useRouter()
     const [formData, setFormData] = useState({
         name: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     })
 
     const [errorMessage, setErrorMessage] = useState('')
@@ -23,21 +24,29 @@ const Form = () => {
             ...prevState,
             [name]: value,
         }))
-        console.log(formData)
+
+    }
+
+    const checkPasswords = () => {
+        if(formData.password !== formData.confirmPassword){
+            setErrorMessage('Passwords do not match')
+            return false
+        }else{
+            return true
+        }
     }
 
     
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        if(pathname == '/signup'){
-            console.log(formData)
+        if(pathname == '/signup' && checkPasswords()){
             const res = await fetch("/api/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({name: formData.name, password: formData.password})
             })
             if(!res.ok){
                 const response = await res.json()
@@ -48,7 +57,6 @@ const Form = () => {
             }
         }
         if(pathname == '/signin'){
-            console.log(formData)
             const result = await signIn("credentials", {
                 username: formData.name,
                 password: formData.password,
@@ -66,7 +74,7 @@ const Form = () => {
                 <label>Password</label>
                 <input className="border-b-2 border-black" id="password" type='password' name="password" required={true} onChange={handleChange} placeholder="Enter Password"/>
                 {pathname == '/signup' ? <label>Confirm Password</label> : null}
-                {pathname == '/signup' ? (<input className='border-b-2 border-black'id="confirmPassword" required={true} type="password" name="confirmPassword" placeholder="Retype Password"/>) : null}
+                {pathname == '/signup' ? (<input className='border-b-2 border-black'id="confirmPassword" required={true} onChange={handleChange} type="password" name="confirmPassword" placeholder="Retype Password"/>) : null}
                 {pathname == '/signup' ? <input  className='border-2' type="submit" value={'Sign Up'}/> : <input className="border-2" type="submit" value={'Sign In'}/>}
             </form>
             {pathname == '/signin' ? <Link href={'/signup'}>Sign Up</Link> : null}
