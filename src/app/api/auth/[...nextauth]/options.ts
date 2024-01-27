@@ -47,9 +47,9 @@ export const options: NextAuthOptions = {
                     let match 
 
                     if(foundUser){
-                        console.log("User Exists")
-                        match = await bcrypt.compare(foundUser.password, credentials?.password || "")
+                        match = await bcrypt.compare(credentials?.password || '', foundUser.password)
                     };
+
                     if(match){
                         return foundUser
                     }

@@ -1,6 +1,7 @@
 import { prisma } from "../auth/[...nextauth]/options"
 import { NextRequest, NextResponse } from "next/server";
 import { validationError } from "../../lib/errors";
+import { hash } from "bcrypt";
 
 
 
@@ -50,10 +51,11 @@ export async function GET(request: NextRequest, response: NextResponse){
 export async function POST(request: NextRequest, response: NextResponse){
     try{
     const data = await request.json()
+    const hashedPassword = await hash(data.password, 12)
     const createUser = await prisma.user.create({
         data:{
             name: data.name,
-            password: data.password
+            password: hashedPassword
         }
     })
         const myOptions = {
@@ -84,7 +86,7 @@ export async function POST(request: NextRequest, response: NextResponse){
 export async function DELETE(request: NextRequest, response: NextResponse){
     try{
         const searchParams = request.nextUrl.searchParams
-        const getUserName: string | null = searchParams.get('email')
+        const getUserName: string | null = searchParams.get('username')
         const deleteUser = await prisma.user.delete({
             where: {
                 name: getUserName as string

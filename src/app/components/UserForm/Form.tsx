@@ -86,4 +86,4 @@ const Form = () => {
 export default Form
 
 
-//  write logic to match password and confirm password, add password encryption, add error messages, client side username validation, and client side password validation
+//  write logic to match password and confirm password, add password encryption, add error messages, client side username validation, and client side password validation, add bcrypt to user sign up
