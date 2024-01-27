@@ -77,8 +77,13 @@ const Form = () => {
                 {pathname == '/signup' ? (<input className='border-b-2 border-black'id="confirmPassword" required={true} onChange={handleChange} type="password" name="confirmPassword" placeholder="Retype Password"/>) : null}
                 {pathname == '/signup' ? <input  className='border-2' type="submit" value={'Sign Up'}/> : <input className="border-2" type="submit" value={'Sign In'}/>}
             </form>
-            {pathname == '/signin' ? <Link href={'/signup'}>Sign Up</Link> : null}
+            {
+                pathname == '/signin' ? <div>
+                    <p className="border-b-2 text-center my-5">Or</p>
+                </div> : null
+            }
             <p>{errorMessage}</p>
+            {pathname == '/signin' ? <Link href={'/signup'}>Sign Up</Link> : null}
         </>
     )
 }
@@ -86,4 +91,4 @@ const Form = () => {
 export default Form
 
 
-//  write logic to match password and confirm password, add password encryption, add error messages, client side username validation, and client side password validation, add bcrypt to user sign up
+//  write logic to match password and confirm password, add error messages, client side username validation, and client side password validation, add check for username availiblity, add google, tiktok icon and sign in functionality
