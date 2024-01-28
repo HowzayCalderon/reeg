@@ -12,6 +12,8 @@ model User {
   name          String    @unique @default("")
   password      String    @default("")
   image         String?
+  email         String?   @unique
+  emailVerified DateTime? 
   accounts      Account[]
   sessions      Session[]
   Teacher       Teacher?
