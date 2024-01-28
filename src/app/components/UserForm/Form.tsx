@@ -90,7 +90,7 @@ const Form = () => {
                     <FaTiktok className="text-xl cursor-pointer"/>
                 </div> : null
             }
-            {pathname == '/signin' ? <Link className='block text-center mt-4' href={'/signup'}>Sign Up</Link> : null}
+            {pathname == '/signup' ? <Link className='block text-center mt-4' href={'/signin'}>Already have an account?</Link> : null}
             <p>{errorMessage}</p>
         </>
     )
