@@ -6,7 +6,8 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
-import { FaTiktok } from "react-icons/fa"
+import { FaTwitch } from "react-icons/fa"
+
 
 
 const Form = () => {
@@ -83,11 +84,8 @@ const Form = () => {
             {
                 pathname == '/signin' ? <div className="grid grid-cols-2 justify-items-center">
                     <p className="border-b-2 text-center my-5 col-span-2 w-full">Or</p>
-                    <FcGoogle  className='cursor-pointer text-2xl' onClick={() => signIn("google",{
-                       redirect: true,
-                       callbackUrl: "/dashboard" 
-                    })}/>
-                    <FaTiktok className="text-xl cursor-pointer"/>
+                    <FcGoogle  className='cursor-pointer text-2xl' onClick={() => signIn("google",{ callbackUrl: "/dashboard" })}/>
+                    <FaTwitch className="text-xl cursor-pointer" onClick={() => signIn("twitch", {  callbackUrl: "/dashboard"  })}/>
                 </div> : null
             }
             {pathname == '/signup' ? <Link className='block text-center mt-4' href={'/signin'}>Already have an account?</Link> : null}
@@ -99,4 +97,4 @@ const Form = () => {
 export default Form
 
 
-//  write logic to match password and confirm password, add error messages, client side username validation, and client side password validation, add check for username availiblity, tiktok icon and sign in functionality, fix email name username unique issue
+//  write logic to match password and confirm password, add error messages, client side username validation, and client side password validation, add check for username availiblity, fix email name username unique issue

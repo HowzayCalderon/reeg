@@ -1,5 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import TwitchProvider from "next-auth/providers/twitch";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
@@ -21,6 +23,9 @@ export const options: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+        }),TwitchProvider({
+            clientId: process.env.TWITCH_CLIENT_ID as string,
+            clientSecret: process.env.TWITCH_CLIENT_SECRET as string
         }),
         CredentialsProvider({
             id: 'credentials',
