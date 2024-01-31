@@ -5,12 +5,12 @@ interface dataObject{
     key: number,
     labelName: string,
     id: string,
-    onchange: any,
+    type?: string,
     placeholder: string
 }
 
-function Form(props:{data: dataObject[], submitValue: string, handlesubmit: any}) {
-    const {data, submitValue, handlesubmit} = props
+function Form(props:{data: dataObject[], submitValue: string, handlesubmit: any, handlechange: any}) {
+    const {data, submitValue, handlesubmit, handlechange} = props
 
   return (
     <form onSubmit={handlesubmit}>
@@ -18,7 +18,7 @@ function Form(props:{data: dataObject[], submitValue: string, handlesubmit: any}
             return (
                 <label className='flex flex-col' key={inputs.key}>
                     {inputs.labelName}
-                    <input  className='border-b-2 border-black' required={true} id={inputs.id} name={inputs.id} onChange={inputs.onchange} placeholder={inputs.placeholder} key={inputs.key}/>
+                    <input  className='border-b-2 border-black' required={true} id={inputs.id} name={inputs.id} onChange={handlechange} placeholder={inputs.placeholder} type={inputs.type} key={inputs.key}/>
                 </label>
             )
         })}

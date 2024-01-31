@@ -37,21 +37,19 @@ const SignIn = () => {
             key: 0,
             labelName: 'Username',
             id: 'name',
-            onchange: handleChange,
             placeholder: 'Enter Username'
         },
         {
             key: 1,
             labelName: 'Password',
             id: 'password',
-            onchange: handleChange,
             placeholder: 'Enter Password'
         }
     ]
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/2">
-                <Form data={data} handlesubmit={handleSubmit} submitValue="Sign In"/>
+                <Form data={data} handlesubmit={handleSubmit} handlechange={handleChange} submitValue="Sign In"/>
                 <div className=" grid grid-cols-2 justify-items-center">
                     <p className="border-b-2 text-center my-5 col-span-2 w-full">Or</p>
                     <FcGoogle  className='cursor-pointer text-2xl' onClick={() => signIn("google",{ callbackUrl: "/dashboard" })}/>
