@@ -1,5 +1,6 @@
 import './globals.css'
-import Nav from './components/Navbar/Nav'
+import Nav from './components/Navbar/Nav';
+import Authprovider from './components/Authprovider';
 
 export const metadata = {
   title: 'reeg',
@@ -15,10 +16,12 @@ export default function RootLayout({
 }: Components) {
   return (
     <html lang="en">
+      <Authprovider>
         <body>
             <Nav></Nav>
             {children}
         </body>
+      </Authprovider>
     </html>
   )
 }
