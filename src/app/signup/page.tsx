@@ -100,3 +100,5 @@ const SignUp = () => {
 }
 
 export default SignUp
+
+// On first sign in ask user if they are a teacher or a student, if they are signing in using a provider ask them to change their username
