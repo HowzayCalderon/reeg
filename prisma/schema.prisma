@@ -35,6 +35,7 @@ model Student {
   gradelevel Int
   Class      Class[]
   classId    Int?
+  answers    Answer[]
 }
 
 model Class {
@@ -44,6 +45,35 @@ model Class {
   Teacher   Teacher?  @relation(fields: [teacherId], references: [id])
   teacherId Int?
 }
+
+model Subject {
+  id        Int       @id
+  name      String    @unique
+  questions Question[] 
+} 
+
+model Question {
+  id        Int     @id
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+  difficulty String
+  topic     String  
+  optionOne String
+  optionTwo String
+  optionThree String
+  optionFour String
+  answer    Answer[]
+}
+
+model Answer {
+  id        Int     @id
+  question Question @relation(fields: [questionId], references: [id])
+  questionId Int    @unique
+  choice    String
+  student   Student @relation(fields:[studentId], references: [id])
+  studentId Int  
+}
+
 
 model Account {
   id                String  @id @default(cuid())
