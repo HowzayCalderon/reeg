@@ -13,7 +13,7 @@ export async function GET(request: NextRequest, response: NextResponse){
         const searchParams = request.nextUrl.searchParams;
         const getUserName: string | null = searchParams.get('username');
         const resOptions = { status: 200, statusText: "OK"};
-        let resMessage: string = "";
+        let resMessage: any = "";
         // let regex = /[A-Za-z0-9]+@[A-Za-z0-9]+\.com/i;
 
         if(getUserName !== null /*&& regex.test(getUserName)*/){
@@ -21,9 +21,9 @@ export async function GET(request: NextRequest, response: NextResponse){
                 where: {
                     name: getUserName as string 
                 }
+            }).then((user) => {
+                resMessage = JSON.stringify(user)
             })
-            resMessage = "User Exists"
-
             return new Response(resMessage, resOptions)
 
         }
