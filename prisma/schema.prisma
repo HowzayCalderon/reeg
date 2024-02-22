@@ -69,9 +69,10 @@ model Answer {
   id        Int     @id
   question Question @relation(fields: [questionId], references: [id])
   questionId Int    @unique
-  choice    String
+  userAnswer    String
   student   Student @relation(fields:[studentId], references: [id])
-  studentId Int  
+  studentId Int 
+  isCorrect Boolean 
 }
 
 
