@@ -39,7 +39,7 @@ model Student {
 }
 
 model Class {
-  id        Int       @id
+  id        Int       @id @default(autoincrement())
   classname String
   students  Student[]
   Teacher   Teacher?  @relation(fields: [teacherId], references: [id])
@@ -47,13 +47,13 @@ model Class {
 }
 
 model Subject {
-  id        Int       @id
+  id        Int       @id @default(autoincrement())
   name      String    @unique
   questions Question[] 
 } 
 
 model Question {
-  id        Int     @id
+  id        Int     @id @default(autoincrement())
   subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
   difficulty String
@@ -66,7 +66,7 @@ model Question {
 }
 
 model Answer {
-  id        Int     @id
+  id        Int     @id @default(autoincrement())
   question Question @relation(fields: [questionId], references: [id])
   questionId Int    @unique
   userAnswer    String
