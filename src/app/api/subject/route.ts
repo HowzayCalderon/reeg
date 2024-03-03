@@ -15,6 +15,6 @@ export async function POST(request: NextRequest, response: NextResponse){
         }
         return new Response("Subject Created", myOptions)
     } catch(err: any){
-        
+        return new Response("You failed");
     }
 }

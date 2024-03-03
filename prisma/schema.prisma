@@ -58,6 +58,7 @@ model Question {
   subjectId Int
   difficulty String
   topic     String  
+  que       String
   optionOne String
   optionTwo String
   optionThree String
