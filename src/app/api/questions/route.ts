@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/options";
+import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 export async function POST(request: NextRequest, response: NextResponse){
     try{
+        const myOptions = {status: 201, statusText: "Created"}
         const data = await request.json() 
         const createQuestion = await prisma.question.create({
             data:{
@@ -20,15 +22,18 @@ export async function POST(request: NextRequest, response: NextResponse){
                 optionFour: data.optionFour,
             }
         })
-        const myOptions = {
-            status: 201,
-            statusText: "Created"
-        }
 
         return new Response("Question added", myOptions)
     }catch(err: any){
-        console.log(err)
-        return new Response("You failed")
+        let resMessage = ""
+        let resOptions = {status: 400, statusText: "Bad Request"}
+        if(err instanceof PrismaClientValidationError){
+            console.error("Missing field",err.message)
+            resMessage = "Missing field or Improper Type"
+            resOptions.status = 400
+            resOptions.statusText = "Bad Request"
+        }
+        return new Response(resMessage, resOptions)
     }
 }
 

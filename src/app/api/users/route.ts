@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, response: NextResponse){
         const resOptions = { status: 200, statusText: "OK"};
         let resMessage: any = "";
 
-        if(getUserName !== null){
+
             const getUser = await prisma.user.findUnique({
                 where: {
                     name: getUserName as string 
@@ -24,12 +24,6 @@ export async function GET(request: NextRequest, response: NextResponse){
                 resMessage = JSON.stringify(user)
             })
             return new Response(resMessage, resOptions)
-
-        }
-        else if(getUserName == null){
-
-            throw new validationError("Missing Field or Improper Syntax", 400)
-        }
 
     }catch(err: any){
 
