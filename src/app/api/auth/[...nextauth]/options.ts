@@ -80,6 +80,3 @@ export const options: NextAuthOptions = {
 }
 
 
-//  CUSTOM SIGN IN FORM AND CREATE USER FORM,
-
-// test user account email: Jose, password: test

@@ -14,9 +14,8 @@ export async function GET(request: NextRequest, response: NextResponse){
         const getUserName: string | null = searchParams.get('username');
         const resOptions = { status: 200, statusText: "OK"};
         let resMessage: any = "";
-        // let regex = /[A-Za-z0-9]+@[A-Za-z0-9]+\.com/i;
 
-        if(getUserName !== null /*&& regex.test(getUserName)*/){
+        if(getUserName !== null){
             const getUser = await prisma.user.findUnique({
                 where: {
                     name: getUserName as string 
@@ -27,10 +26,10 @@ export async function GET(request: NextRequest, response: NextResponse){
             return new Response(resMessage, resOptions)
 
         }
-        // else if(getUserName == null || regex.test(getUserName) == false){
+        else if(getUserName == null){
 
-        //     throw new validationError("Missing Field or Improper Syntax", 400)
-        // }
+            throw new validationError("Missing Field or Improper Syntax", 400)
+        }
 
     }catch(err: any){
 
