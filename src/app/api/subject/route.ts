@@ -18,3 +18,23 @@ export async function POST(request: NextRequest, response: NextResponse){
         return new Response("You failed");
     }
 }
+
+export async function GET(request: NextRequest, response: NextResponse){
+    try{
+        let resMessage: any;
+        const getSubject = await prisma.subject.findFirst({
+            where: {
+                name: 'algebra'
+            }
+        }).then((subject) => {
+            resMessage = JSON.stringify(subject)
+        })
+
+        return new Response(resMessage)
+    } catch(err: any){
+        return new Response("Fail")
+    }
+}
+
+/* REMEMBER TO CHANGE GETSUBJECT FILTER TO SEARCH FOR THE 
+REQUESTED SUBJECT AND NOT FOR ALGEBRA SPECIFICALLY */
