@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/options";
-import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 export async function POST(request: NextRequest, response: NextResponse){
     try{
@@ -28,10 +28,11 @@ export async function POST(request: NextRequest, response: NextResponse){
         let resMessage = ""
         let resOptions = {status: 400, statusText: "Bad Request"}
         if(err instanceof PrismaClientValidationError){
-            console.error("Missing field",err.message)
-            resMessage = "Missing field or Improper Type"
-            resOptions.status = 400
-            resOptions.statusText = "Bad Request"
+            console.error("Missing field", err.message)
+            resMessage = "Missing field or Improper Value"
+        }
+        if(err instanceof PrismaClientKnownRequestError){
+            console.error(err.message)
         }
         return new Response(resMessage, resOptions)
     }
@@ -47,5 +48,14 @@ export async function GET(request: NextRequest, response: NextResponse){
         return new Response(resMessage)
     }catch(err:any){
         return new Response("You failed")
+    }
+}
+
+export async function DELETE(request: NextRequest, response: NextResponse){
+    try{
+        const deleteQuestions = await prisma.question.deleteMany()
+        return new Response("Questions Deleted")
+    }catch(err:any){
+        return new Response("Questions are still there")
     }
 }
