@@ -26,6 +26,7 @@ export async function POST(request: NextRequest, response: NextResponse){
     }catch(err: any){
         let resMessage = ""
         const resOptions = {status: 400, statusText: "Bad Request"}
+        console.error(err)
         return new Response(resMessage, resOptions)
     }
 }
