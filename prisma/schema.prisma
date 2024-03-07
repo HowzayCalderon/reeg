@@ -58,7 +58,7 @@ model Question {
   subjectId Int
   difficulty String
   topic     String  
-  que       String
+  que       String  @unique
   optionOne String
   optionTwo String
   optionThree String
@@ -70,7 +70,7 @@ model Answer {
   id        Int     @id @default(autoincrement())
   question Question @relation(fields: [questionId], references: [id])
   questionId Int    @unique
-  userAnswer    String
+  userAnswer String
   student   Student @relation(fields:[studentId], references: [id])
   studentId Int 
   isCorrect Boolean 
