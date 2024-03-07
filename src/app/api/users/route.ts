@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, response: NextResponse){
 
             const getUser = await prisma.user.findUnique({
                 where: {
-                    name: getUserName as string 
+                    username: getUserName as string 
                 }
             }).then((user) => {
                 resMessage = JSON.stringify(user)
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest, response: NextResponse){
     const hashedPassword = await hash(data.password, 12)
     const createUser = await prisma.user.create({
         data:{
-            name: data.name.toLowerCase(),
+            username: data.name.toLowerCase(),
             password: hashedPassword
         }
     })
@@ -82,7 +82,7 @@ export async function DELETE(request: NextRequest, response: NextResponse){
         const getUserName: string | null = searchParams.get('username')
         const deleteUser = await prisma.user.delete({
             where: {
-                name: getUserName as string
+                username: getUserName as string
             }
         })
     return new Response("It has been done")

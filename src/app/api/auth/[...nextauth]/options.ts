@@ -21,7 +21,7 @@ export const options: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),TwitchProvider({
             clientId: process.env.TWITCH_CLIENT_ID as string,
             clientSecret: process.env.TWITCH_CLIENT_SECRET as string
@@ -45,7 +45,7 @@ export const options: NextAuthOptions = {
                 try{
                     const foundUser = await prisma.user.findUnique({
                         where: {
-                            name: credentials?.username
+                            username: credentials?.username
                         }
                     })
                     let match 
