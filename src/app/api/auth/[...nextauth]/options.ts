@@ -1,4 +1,4 @@
-import type { NextAuthOptions } from "next-auth";
+import type { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import TwitchProvider from "next-auth/providers/twitch";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -12,7 +12,7 @@ export const prisma = new PrismaClient()
 export const options: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     session:{
-        strategy: "database"
+        strategy: "jwt"
     },
     pages:{
         signIn: "/signin"
@@ -21,7 +21,6 @@ export const options: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-
         }),TwitchProvider({
             clientId: process.env.TWITCH_CLIENT_ID as string,
             clientSecret: process.env.TWITCH_CLIENT_SECRET as string,
@@ -67,11 +66,13 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async session({session, user }){
-            user.id 
-
-            return session
-        }
+        async jwt({token, user, account}){
+            if(account){
+                token.id = user?.id
+            }
+            return token
+        },
+        
     }
 }
 
