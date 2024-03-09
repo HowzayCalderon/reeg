@@ -5,7 +5,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt'
-import { redirect } from "next/navigation";
 
 export const prisma = new PrismaClient()
 
@@ -13,7 +12,7 @@ export const prisma = new PrismaClient()
 export const options: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     session:{
-        strategy: "jwt"
+        strategy: "database"
     },
     pages:{
         signIn: "/signin"
@@ -22,9 +21,10 @@ export const options: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+
         }),TwitchProvider({
             clientId: process.env.TWITCH_CLIENT_ID as string,
-            clientSecret: process.env.TWITCH_CLIENT_SECRET as string
+            clientSecret: process.env.TWITCH_CLIENT_SECRET as string,
         }),
         CredentialsProvider({
             id: 'credentials',
@@ -67,13 +67,9 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({token, user}){
-            if(user){
-                token.id = user.id
-            }
-            return token
-        },
-        async session({session, user, token }){
+        async session({session, user }){
+            user.id 
+
             return session
         }
     }

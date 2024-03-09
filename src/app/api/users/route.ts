@@ -24,7 +24,7 @@ export async function GET(request: NextRequest, response: NextResponse){
                 resMessage = JSON.stringify(user)
             })
             return new Response(resMessage, resOptions)
-
+        
     }catch(err: any){
 
         const myOptions = {status: err.statusCode, statusText: "Bad Request"}
