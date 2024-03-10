@@ -12,7 +12,7 @@ export const prisma = new PrismaClient()
 export const options: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     session:{
-        strategy: "jwt"
+        strategy: "database"
     },
     pages:{
         signIn: "/signin"
@@ -66,13 +66,10 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({token, user, account}){
-            if(account){
-                token.id = user?.id
-            }
-            return token
-        },
-        
+        session({ session, user }){
+            session.user.id = user.id
+            return session
+        }
     }
 }
 

@@ -15,7 +15,7 @@ const page = async () => {
       Protected Page
       <p>{session.user?.name}</p>
       <p>{session.user?.email}</p>
-      {/* <p>{session.user.}</p> */}
+      <p>{session.user.id}</p>
     </>
 
   )
