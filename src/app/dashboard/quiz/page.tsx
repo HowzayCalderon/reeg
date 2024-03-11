@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 
-const page = () => {
+const Page = () => {
     const { data: session } = useSession({
         required: true,
         onUnauthenticated(){
@@ -16,7 +16,7 @@ const page = () => {
     
 }
 
-export default page
+export default Page
 
 
 /* MAKE QUESTIONS APPEAR, WRITE CODE TO ASK USERS TO CHOOSE 
