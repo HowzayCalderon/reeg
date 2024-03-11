@@ -10,15 +10,18 @@ const page = async () => {
   if(!session){
     redirect('/api/auth/signin?callbackUrl=/dashboard')
   }
+
   return (
     <>
       Protected Page
       <p>{session.user?.name}</p>
       <p>{session.user?.email}</p>
-      <p>{session.user.id}</p>
     </>
 
   )
 }
 
 export default page
+
+/* CREATE NEW USER PAGE AND REQUEST NEW USERS TO CHOOSE WHETHER THEY
+ARE A TEACHER OR A STUDENT */

@@ -15,7 +15,8 @@ export const options: NextAuthOptions = {
         strategy: "database"
     },
     pages:{
-        signIn: "/signin"
+        signIn: "/signin",
+        newUser: "/newUser"
     },
     providers: [
         GoogleProvider({
