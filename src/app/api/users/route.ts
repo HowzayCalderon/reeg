@@ -78,19 +78,24 @@ export async function POST(request: NextRequest, response: NextResponse){
 
 export async function DELETE(request: NextRequest, response: NextResponse){
     try{
-        const searchParams = request.nextUrl.searchParams
-        const getUserName: string | null = searchParams.get('username')
-        const deleteUser = await prisma.user.delete({
-            where: {
-                username: getUserName as string
-            }
-        })
-    return new Response("It has been done")
+    //     const searchParams = request.nextUrl.searchParams
+    //     const getUserName: string | null = searchParams.get('username')
+    //     const deleteUser = await prisma.user.delete({
+    //         where: {
+    //             username: getUserName as string
+    //         }
+    //     })
+    // return new Response("It has been done")
+    const deleteAllUsers = await prisma.user.deleteMany()
+    return new Response("its done")
 
     }catch(e){
 
         return new Response("You failed")
     }
 }
+
+/* THE COMMENTED OUT CODE INSIDE THE DELETE FUNCTION IS THE PROPER CODE 
+DONT FORGET TO UNCOMMENT IT BACK IN WHEN DONE TESTING THE NEW PAGE */
 
 // Ensure each function has a proper response and is catching errors
