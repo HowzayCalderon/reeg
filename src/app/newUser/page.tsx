@@ -4,6 +4,11 @@ const Page = () => {
     return (
         <div>
             <p>new User Page</p>
+            <form className="border-black border-2 w-1/2 mx-auto grid grid-cols-2 px-2">
+                <button  id="teacher" name="role" value="Teacher">Teacher</button>
+                <button id="student" name="role" value="Student">Student</button>
+                <input className="col-span-2 content-center"type="text" name="username" id="username" placeholder="Username"/>
+            </form>
         </div>
     )
 }
