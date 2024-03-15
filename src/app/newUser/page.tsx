@@ -1,6 +1,15 @@
+"use client"
 import React from "react"
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 const Page = () => {
+    const { data: session } = useSession()
+    const [formData, setFormData] = useState({
+        role: "",
+        username: "",
+        email: session?.user.email
+    })
     return (
         <div>
             <p>new User Page</p>
