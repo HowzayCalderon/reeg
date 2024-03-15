@@ -69,6 +69,7 @@ export const options: NextAuthOptions = {
     callbacks: {
         session({ session, user }){
             session.user.id = user.id
+            session.user.username = user.username
             return session
         }
     }

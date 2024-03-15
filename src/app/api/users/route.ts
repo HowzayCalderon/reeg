@@ -98,4 +98,22 @@ export async function DELETE(request: NextRequest, response: NextResponse){
 /* THE COMMENTED OUT CODE INSIDE THE DELETE FUNCTION IS THE PROPER CODE 
 DONT FORGET TO UNCOMMENT IT BACK IN WHEN DONE TESTING THE NEW PAGE */
 
+export async function PATCH(request: NextRequest, response: NextResponse){
+    try{
+        const data = await request.json()
+        const updateUser = await prisma.user.update({
+            where: {
+                email: data.email 
+            },
+            data: {
+                role: data.role,
+                username: data.username
+            }
+        })
+        return new Response("its done");
+    }catch(e){
+        return new Response("it failed")
+    }
+}
+
 // Ensure each function has a proper response and is catching errors

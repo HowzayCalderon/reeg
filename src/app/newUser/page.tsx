@@ -2,21 +2,48 @@
 import React from "react"
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+    const router = useRouter()
     const { data: session } = useSession()
     const [formData, setFormData] = useState({
         role: "",
         username: "",
         email: session?.user.email
     })
+
+    const handleChange = (e: any) => {
+        e.preventDefault()
+        const value = e?.target?.value
+        const name = e?.target?.name
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+        formData.email = session?.user.email
+    }
+
+    const handleSubmit = async () => {
+        const res = await fetch("api/users", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email})
+        })
+        router.push("/dashboard")
+    }
+    console.log(formData)
+
     return (
         <div>
             <p>new User Page</p>
-            <form className="border-black border-2 w-1/2 mx-auto grid grid-cols-2 px-2">
-                <button  id="teacher" name="role" value="Teacher">Teacher</button>
-                <button id="student" name="role" value="Student">Student</button>
-                <input className="col-span-2 content-center"type="text" name="username" id="username" placeholder="Username"/>
+            <form onSubmit={handleSubmit} className="border-black border-2 w-1/2 mx-auto grid grid-cols-2 px-2">
+                <button  id="teacher" onClick={handleChange} name="role" value="Teacher">Teacher</button>
+                <button id="student" name="role" onClick={handleChange}value="Student">Student</button>
+                <input onChange={handleChange} className="col-span-2 content-center"type="text" name="username" id="username" placeholder="Username"/>
+                <button type="submit">Submit</button>
             </form>
         </div>
     )
@@ -25,6 +52,5 @@ const Page = () => {
 export default Page
 
 
-/* THIS PAGE WILL BE USED TO ASK NEW USERS WHETHER THEY ARE A TEACHER OR A
-STUDENT, ALSO IF THEY SIGNED IN USING AN EXTERNAL PROVIDER ASK TO PROVIDE
-A USERNAME */
+/* WONT PUSH TO DASHBOARD PAGE AFTER COMPLETING PATCH REQUEST, WE WANT TO PUSH USERS TO DASHBOARD AFTER THEY ADD THEIR USERNAME AND ROLE */
+
