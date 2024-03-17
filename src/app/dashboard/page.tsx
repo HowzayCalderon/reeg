@@ -23,5 +23,3 @@ const page = async () => {
 
 export default page
 
-/* CREATE NEW USER PAGE AND REQUEST NEW USERS TO CHOOSE WHETHER THEY
-ARE A TEACHER OR A STUDENT */

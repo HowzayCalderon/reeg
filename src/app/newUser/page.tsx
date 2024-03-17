@@ -38,6 +38,15 @@ const Page = () => {
             }
 
         })
+
+        if(formData.role == 'Teacher'){
+            const createTeacher = async () => {
+                const res = await fetch("api/users")
+            }
+        }
+        /* create function to link user account to a type of account 
+        depending on role they choose also create route method for 
+        teacher and student routes to handle request */
     }
 
 
