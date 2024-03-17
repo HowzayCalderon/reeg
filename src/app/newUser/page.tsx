@@ -24,15 +24,20 @@ const Page = () => {
         formData.email = session?.user.email
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
         const res = await fetch("api/users", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email})
+        }).then((res) => {
+            if(res.ok){
+                router.push("/dashboard")
+            }
+
         })
-        router.push("/dashboard")
     }
     console.log(formData)
 
@@ -52,5 +57,4 @@ const Page = () => {
 export default Page
 
 
-/* WONT PUSH TO DASHBOARD PAGE AFTER COMPLETING PATCH REQUEST, WE WANT TO PUSH USERS TO DASHBOARD AFTER THEY ADD THEIR USERNAME AND ROLE */
 
