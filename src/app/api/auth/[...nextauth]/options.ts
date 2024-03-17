@@ -70,6 +70,7 @@ export const options: NextAuthOptions = {
         session({ session, user }){
             session.user.id = user.id
             session.user.username = user.username
+            session.user.role = user.role
             return session
         }
     }

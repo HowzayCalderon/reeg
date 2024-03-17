@@ -32,14 +32,14 @@ const Page = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email})
-        }).then((res) => {
+            }).then((res) => {
             if(res.ok){
                 router.push("/dashboard")
             }
 
         })
     }
-    console.log(formData)
+
 
     return (
         <div>
