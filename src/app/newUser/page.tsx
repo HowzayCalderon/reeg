@@ -3,6 +3,7 @@ import React from "react"
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { create } from "domain";
 
 const Page = () => {
     const router = useRouter()
@@ -32,21 +33,33 @@ const Page = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email})
-            }).then((res) => {
-            if(res.ok){
-                router.push("/dashboard")
-            }
+            }).then(() => {
+                if(formData.role == 'Teacher'){
+                    const createTeacher = async () => {
+                        const res = await fetch("api/teachers", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({userId: session?.user.id})
+                        })
+                        createTeacher()
+                    }
+                    router.push("/dashboard")
+                }
 
-        })
+            })
 
-        if(formData.role == 'Teacher'){
-            const createTeacher = async () => {
-                const res = await fetch("api/users")
-            }
-        }
         /* create function to link user account to a type of account 
         depending on role they choose also create route method for 
-        teacher and student routes to handle request */
+        teacher and student routes to handle request 
+        
+        ****** CONSIDER CREATING A NESTED ROUTE INSIDE NEWUSER FOLDER FOR 
+        USERS WHO SELECT STUDENT AS THEIR ROLE OPTION BECAUSE THE STUDENT
+        ROLE REQUIRES MORE INFORMATION TO CREATE IN DATABASE 
+        
+        ****** createTeacher portion of handleSubmit function still not
+        working */
     }
 
 
