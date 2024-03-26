@@ -98,21 +98,55 @@ export async function DELETE(request: NextRequest, response: NextResponse){
 /* THE COMMENTED OUT CODE INSIDE THE DELETE FUNCTION IS THE PROPER CODE 
 DONT FORGET TO UNCOMMENT IT BACK IN WHEN DONE TESTING THE NEW PAGE */
 
+// export async function PATCH(request: NextRequest, response: NextResponse){
+//     try{
+//         const data = await request.json()
+//         const updateUser = await prisma.user.update({
+//             where: {
+//                 email: data.email 
+//             },
+//             data: {
+//                 role: data.role,
+//                 username: data.username,
+//                 Teacher: {
+                    
+//                 }
+//             }
+//         })
+//         return new Response("its done");
+//     }catch(e){
+//         return new Response("it failed")
+//     }
+// }
+
+//  ^^^ BOTH PATCH FUNCTIONS WORK BUT ARE TOO SPECIFIC, BOTTOM ONE CREATES TEACHERS
+
 export async function PATCH(request: NextRequest, response: NextResponse){
     try{
         const data = await request.json()
-        const updateUser = await prisma.user.update({
+        const updateRole = await prisma.user.update({
             where: {
-                email: data.email 
+                id: data.id
             },
             data: {
                 role: data.role,
-                username: data.username
+                username: data.username,
+                Teacher: {
+                    connectOrCreate: {
+                        where: {
+                            userId: data.id,
+                        },
+                        create:{
+
+                        }
+                    }
+                }
             }
         })
-        return new Response("its done");
-    }catch(e){
-        return new Response("it failed")
+        return new Response("Success")
+    }catch(e:any){
+        console.log(e)
+        return new Response("not success")
     }
 }
 

@@ -8,14 +8,14 @@ export async function POST(response: NextResponse, request: NextRequest){
         const createTeacher = await prisma.teacher.create({
             data: {
                 user: {
-                    connect:{
-                        id: data.userId
-                    }
+                    connect:{  id: data.id  }
+                    // this method not working
                 }
             }
         })
         return new Response("Teacher created", resOptions)
     }catch(e:any){
+        console.error(e)
         return new Response("You failed");
     }
 }

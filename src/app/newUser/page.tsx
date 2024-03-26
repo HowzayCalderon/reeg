@@ -3,7 +3,6 @@ import React from "react"
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { create } from "domain";
 
 const Page = () => {
     const router = useRouter()
@@ -11,8 +10,11 @@ const Page = () => {
     const [formData, setFormData] = useState({
         role: "",
         username: "",
-        email: session?.user.email
+        email: session?.user.email,
+        id: session?.user.id
     })
+
+
 
     const handleChange = (e: any) => {
         e.preventDefault()
@@ -23,6 +25,7 @@ const Page = () => {
             [name]: value,
         }))
         formData.email = session?.user.email
+        formData.id = session?.user.id
     }
 
     const handleSubmit = async (e: any) => {
@@ -32,23 +35,24 @@ const Page = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email})
+            body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email, id: formData.id})
             }).then(() => {
-                if(formData.role == 'Teacher'){
-                    const createTeacher = async () => {
-                        const res = await fetch("api/teachers", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({userId: session?.user.id})
-                        })
-                        createTeacher()
-                    }
-                    router.push("/dashboard")
-                }
-
+                router.push('/dashboard')
             })
+            
+            // if(formData.role == 'Teacher'){
+            //     const createTeacher = async () => {
+            //         const res = await fetch("api/teachers", {
+            //             method: "POST",
+            //             headers: {
+            //                 "Content-Type": "application/json"
+            //             },
+            //             body: JSON.stringify({userId: session?.user.id})
+            //         })
+            //         createTeacher()
+            //         router.push("/dashboard")
+            //     }
+            // }
 
         /* create function to link user account to a type of account 
         depending on role they choose also create route method for 
