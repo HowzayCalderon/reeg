@@ -1,7 +1,7 @@
 import { prisma } from "../auth/[...nextauth]/options"
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request,res: Response){
+export async function GET(req: NextRequest,res: NextResponse){
     try{
         const resOptions = { status: 200, statusText: "Success"}
         let resMessage: any = "";

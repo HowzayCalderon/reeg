@@ -40,23 +40,8 @@ const Page = () => {
                 router.push('/dashboard')
             })
             
-            // if(formData.role == 'Teacher'){
-            //     const createTeacher = async () => {
-            //         const res = await fetch("api/teachers", {
-            //             method: "POST",
-            //             headers: {
-            //                 "Content-Type": "application/json"
-            //             },
-            //             body: JSON.stringify({userId: session?.user.id})
-            //         })
-            //         createTeacher()
-            //         router.push("/dashboard")
-            //     }
-            // }
-
-        /* create function to link user account to a type of account 
-        depending on role they choose also create route method for 
-        teacher and student routes to handle request 
+            
+        /* 
         
         ****** CONSIDER CREATING A NESTED ROUTE INSIDE NEWUSER FOLDER FOR 
         USERS WHO SELECT STUDENT AS THEIR ROLE OPTION BECAUSE THE STUDENT

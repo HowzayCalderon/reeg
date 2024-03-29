@@ -1,7 +1,7 @@
 import { prisma } from "@/api/auth/[...nextauth]/options";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: Response){
+export async function GET(req: NextRequest, res: NextResponse){
     try{
         const searchParams = req.nextUrl.searchParams;
         const getUserName: string | null = searchParams.get('username');
