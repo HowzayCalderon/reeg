@@ -20,17 +20,17 @@ export async function POST( request: NextRequest){
     }
 }
 
-export async function GET(req: NextRequest, res: NextResponse){
-    try{
-        const resOptions = { status: 200, statusText: "Success"}
-        let resMessage: any;
-        const getTeachers = await prisma.teacher.findMany(
-        ).then((res) => {
-            resMessage = JSON.stringify(res)
-        })
-        return new Response(resMessage, resOptions)
-    }catch(e:any){
+// export async function GET(req: NextRequest, res: NextResponse){
+//     try{
+//         const resOptions = { status: 200, statusText: "Success"}
+//         let resMessage: any;
+//         const getTeachers = await prisma.teacher.findMany(
+//         ).then((res) => {
+//             resMessage = JSON.stringify(res)
+//         })
+//         return new Response(resMessage, resOptions)
+//     }catch(e:any){
 
-        return new Response("it failed");
-    }
-}
+//         return new Response("it failed");
+//     }
+// }
