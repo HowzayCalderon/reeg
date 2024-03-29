@@ -21,7 +21,7 @@ export async function POST(response: NextResponse, request: NextRequest){
     }
 }
 
-export async function GET(response: NextResponse, request: NextRequest){
+export async function GET( request: NextRequest){
     try{
         const resOptions = { status: 200, statusText: "Success"}
         let resMessage: any = "";
