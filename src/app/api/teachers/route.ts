@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/options";
 
 export async function POST(response: NextResponse, request: NextRequest){
@@ -30,7 +31,7 @@ export async function GET(response: NextResponse, request: NextRequest){
         })
         return new Response(resMessage, resOptions)
     }catch(e:any){
-        console.log(e)
+
         return new Response("it failed");
     }
 }
