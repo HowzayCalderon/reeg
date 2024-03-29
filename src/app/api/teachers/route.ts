@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/options";
 
-export async function POST(response: NextResponse, request: NextRequest){
+export async function POST( request: NextRequest){
     try{
         const resOptions = {status: 201, statusText: "Created"}
         const data = await request.json()
@@ -21,7 +21,7 @@ export async function POST(response: NextResponse, request: NextRequest){
     }
 }
 
-export async function GET( request: NextRequest){
+export async function GET(){
     try{
         const resOptions = { status: 200, statusText: "Success"}
         let resMessage: any = "";
