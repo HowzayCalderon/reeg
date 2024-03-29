@@ -20,7 +20,7 @@ export async function POST( request: NextRequest){
     }
 }
 
- async function GET(req: NextRequest, res: NextResponse){
+export async function GET(req: NextRequest, res: NextResponse){
     try{
         const resOptions = { status: 200, statusText: "Success"}
         let resMessage: any;
