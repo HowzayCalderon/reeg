@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/options";
 
 export async function POST( request: NextRequest){
@@ -24,7 +23,7 @@ export async function POST( request: NextRequest){
 export async function GET(){
     try{
         const resOptions = { status: 200, statusText: "Success"}
-        let resMessage: any = "";
+        let resMessage: any;
         const getTeachers = await prisma.teacher.findMany(
         ).then((res) => {
             resMessage = JSON.stringify(res)
