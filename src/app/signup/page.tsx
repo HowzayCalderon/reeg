@@ -63,7 +63,7 @@ const SignUp = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
             if(checkPasswords()){
-            const res = await fetch("/api/users", {
+            const res = await fetch("/api/users/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

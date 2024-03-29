@@ -30,7 +30,7 @@ const Page = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        const res = await fetch("api/users", {
+        const res = await fetch("api/users/updaterole", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
