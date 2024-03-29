@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../auth/[...nextauth]/options";
 
 export async function POST( request: NextRequest){
@@ -20,7 +20,7 @@ export async function POST( request: NextRequest){
     }
 }
 
-export async function GET(){
+export async function GET(req: NextRequest, res: NextResponse){
     try{
         const resOptions = { status: 200, statusText: "Success"}
         let resMessage: any;
