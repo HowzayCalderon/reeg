@@ -15,9 +15,7 @@ const page = async () => {
   return (
     <>
       <p> Hello, {session.user?.username}</p>
-      <p> {session.user.role}</p>
-      <p>{session.user.id}</p>
-      <p>{session.user.email}</p>
+      <h1 className='text-3xl pt-2'>Classes</h1>
     </>
 
   )
