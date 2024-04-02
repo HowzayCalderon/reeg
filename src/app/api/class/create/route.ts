@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "../auth/[...nextauth]/options";
+import { prisma } from "../../auth/[...nextauth]/options";
 
 export async function POST(request: NextRequest, response: NextResponse){
     try{
@@ -10,7 +10,12 @@ export async function POST(request: NextRequest, response: NextResponse){
                 classname: data.classname,
                 Teacher: {
                     connect: {
-                        id: data.teacherId
+                        userId: data.teacherId
+                    }
+                },
+                topic: {
+                    connect: {
+                        name: data.subject
                     }
                 }
             }
