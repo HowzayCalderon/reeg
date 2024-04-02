@@ -45,12 +45,15 @@ model Class {
   students  Student[]
   Teacher   Teacher?  @relation(fields: [teacherId], references: [id])
   teacherId Int?
+  topic     Subject   @relation(fields: [topicId], references: [id])
+  topicId   Int 
 }
 
 model Subject {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   questions Question[] 
+  classes   Class[]
 } 
 
 model Question {
