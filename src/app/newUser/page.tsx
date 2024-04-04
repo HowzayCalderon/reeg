@@ -47,8 +47,7 @@ const Page = () => {
         USERS WHO SELECT STUDENT AS THEIR ROLE OPTION BECAUSE THE STUDENT
         ROLE REQUIRES MORE INFORMATION TO CREATE IN DATABASE 
         
-        ****** createTeacher portion of handleSubmit function still not
-        working */
+        */
     }
 
 
