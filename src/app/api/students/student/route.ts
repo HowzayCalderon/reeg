@@ -12,6 +12,7 @@ export async function GET(request: NextRequest){
             include:{ 
                 Class:{
                     select: {
+                        id: true,
                         Teacher: true,
                         classname: true,
                         students: true,
@@ -24,8 +25,8 @@ export async function GET(request: NextRequest){
             resMessage = JSON.stringify(data)
         })
         return new Response(resMessage, resOptions)
-    }catch(e:any){
-        console.log(e)
+    }catch(e: any){
+
         return new Response("Failed");
     }
 }

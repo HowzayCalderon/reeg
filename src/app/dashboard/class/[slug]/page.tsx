@@ -1,22 +1,21 @@
-import { options } from "@/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+"use client"
 import React from "react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+ 
 
 
-
-export default async function Page({ params }: { params: { slug: string }}){
-    const session = await getServerSession(options)
-    
-    if(!session){
-        redirect('/api/auth/signin?callbackUrl=/dashboard')
-    }
-
-
+export default function Page({ params }: { params: { slug: string }}){
+    const { data: session } = useSession({
+        required: true,
+        onUnauthenticated(){
+            redirect("/api/auth/signin")
+        }
+    })
 
     return (
         <div>
-
+            <p>{params.slug}</p>
         </div>
     )
 }
