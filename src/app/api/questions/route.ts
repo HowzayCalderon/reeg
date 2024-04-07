@@ -41,11 +41,12 @@ export async function POST(request: NextRequest, response: NextResponse){
 export async function GET(request: NextRequest, response: NextResponse){
     try{
         let resMessage: any = ""
+        let resOptions = {status: 200, statusText: "OK"}
         const getQuestions = await prisma.question.findMany()
         .then((question) => {
             resMessage = JSON.stringify(question)
         })
-        return new Response(resMessage)
+        return new Response(resMessage, resOptions)
     }catch(err:any){
         return new Response("You failed")
     }

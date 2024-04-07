@@ -1,6 +1,7 @@
 import React from "react";
 
 export const dynamicParams = false;
+export const revalidate = 10;
 
 export function generateStaticParams(){
     return [{id: "algebra"},{id: "algebra II"}, {id: "chemistry"},
@@ -15,4 +16,11 @@ export default async function Page({ params }: { params: { id: string }}){
     method: "GET"
    }).then((data) => data.json())
    console.log(res)
+
 }
+
+/* **************************
+    add questions get method route to return questions 
+    for a specific subject
+    **************************
+ */ 
