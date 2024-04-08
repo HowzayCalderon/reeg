@@ -9,7 +9,7 @@ export async function GET(request: NextRequest){
         let resMessage: any = ""
         const findQuestions = await prisma.subject.findMany({
             where:{ name: getSubject as string },
-            include:{
+            select:{
                 questions: true
             }
             
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest){
         })
         return new Response(resMessage, resOptions)
     }catch(e: any){
-
-        return new Response("Failed");
+        let resMessage = JSON.stringify(e)
+        return new Response(resMessage);
     }
 }
