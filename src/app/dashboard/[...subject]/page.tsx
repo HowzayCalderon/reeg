@@ -5,20 +5,36 @@ import { useEffect, useState } from "react";
 
 
 export default function Page({ params }: { params: { subject: string }}){
-    const [questions, setQuestions] = useState()
+    const [ qs, setQuestions] = useState([{
+    difficulty: "",
+    id: "",
+    optionFour: "",
+    optionOne: "",
+    optionThree: "",
+    optionTwo: "",
+    que: "", 
+    subjectId: "",
+    topic: ""
+    }])
+    
     useEffect(() => {
         fetch(`/api/subject/questions?subject=${params.subject}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
-            setQuestions(data)
+            setQuestions(data[0].questions)
         })
     },[])
-    
-    questions ? console.log(questions, "yes") : console.log("not yet")
+
+
     return (
         <>
-            
+            <p>{qs[0].que} ?</p>
+            <ol>
+                <li>{qs[0].optionOne}</li>
+                <li>{qs[0].optionTwo}</li>
+                <li>{qs[0].optionThree}</li>
+                <li>{qs[0].optionFour}</li>
+            </ol>
         </>
     )
 }

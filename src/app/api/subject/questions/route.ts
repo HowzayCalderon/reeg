@@ -9,8 +9,9 @@ export async function GET(request: NextRequest){
         let resMessage: any = ""
         const findQuestions = await prisma.subject.findMany({
             where:{ name: getSubject as string },
-            include:{
-                questions: true
+            select:{
+                questions: true,
+                name: true
             }
             
         })
