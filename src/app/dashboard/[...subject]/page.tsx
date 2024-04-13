@@ -1,15 +1,26 @@
+"use client"
 import React from "react";
-import { NextRequest } from "next/server";
-
-async function getQuestions(subject: string){
-    const response = await fetch(`http://localhost:3000/api/subject/questions?subject=${subject}`, {method: 'GET'})
-    return response.json()
-}
+import { useEffect, useState } from "react";
 
 
-export default async function Page({ params }: { params: { subject: string }}){
-    const questions = await getQuestions(params.subject)
-    console.log(questions[0])
+
+export default function Page({ params }: { params: { subject: string }}){
+    const [questions, setQuestions] = useState()
+    useEffect(() => {
+        fetch(`/api/subject/questions?subject=${params.subject}`)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            setQuestions(data)
+        })
+    },[])
+    
+    questions ? console.log(questions, "yes") : console.log("not yet")
+    return (
+        <>
+            
+        </>
+    )
 }
 
 
