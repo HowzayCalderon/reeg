@@ -7,9 +7,15 @@ export async function GET(request: NextRequest){
         let resOptions = {status: 200, statusText: "OK"}
         const searchParams = request.nextUrl.searchParams;
         const getSubject = Number(searchParams.get('id'))
+        const getStudent = Number(searchParams.get('student'))
         const getQuestions = await prisma.question.findMany({
             where: {
-                subjectId: getSubject
+                subjectId: getSubject,
+                answer: {
+                    none: {
+                        studentId: getStudent
+                    }
+                }
             }
         })
         .then((question) => {
@@ -17,6 +23,7 @@ export async function GET(request: NextRequest){
         })
         return new Response(resMessage, resOptions)
     }catch(err:any){
+        console.log(err)
         return new Response("You failed")
     }
 }
