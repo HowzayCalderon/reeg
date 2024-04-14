@@ -1,10 +1,18 @@
 "use client"
 import React from "react";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 
 
 export default function Page({ params }: { params: { subject: string }}){
+    const { data: session } = useSession({
+        required: true,
+        onUnauthenticated(){
+            redirect('/signin')
+        }
+    })
     const [ qs, setQuestions] = useState([{
     difficulty: "",
     id: "",
@@ -18,10 +26,10 @@ export default function Page({ params }: { params: { subject: string }}){
     }])
     
     useEffect(() => {
-        fetch(`/api/subject/questions?subject=${params.subject}`)
+        fetch(`/api/questions/getquestions?name=${params.subject}&user=${session?.user.id}`)
         .then((res) => res.json())
         .then((data) => {
-            setQuestions(data[0].questions)
+            setQuestions(data)
         })
     },[])
 

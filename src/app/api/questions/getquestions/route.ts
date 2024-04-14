@@ -6,11 +6,13 @@ export async function GET(request: NextRequest){
         let resMessage: any = ""
         let resOptions = {status: 200, statusText: "OK"}
         const searchParams = request.nextUrl.searchParams;
-        const getSubject = Number(searchParams.get('id'))
+        const getSubject = searchParams.get('name')
         const getStudent = searchParams.get('user')
         const getQuestions = await prisma.question.findMany({
             where: {
-                subjectId: getSubject,
+                subject: {
+                    name: getSubject as string
+                },
                 answer: {
                     none: {
                         student: {
