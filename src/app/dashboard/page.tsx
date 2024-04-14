@@ -2,7 +2,7 @@ import React from 'react'
 import { getServerSession } from 'next-auth'
 import { options } from '@/api/auth/[...nextauth]/options'
 import { redirect } from 'next/navigation'
-
+import Link from 'next/link'
 
 const page = async () => {
   const session = await getServerSession(options)
@@ -17,9 +17,16 @@ const page = async () => {
       <p>{session.user.role}</p>
       <h1 className='text-3xl pt-2'>Classes</h1>
       <h1 className='text-3xl pt-2'>Subjects</h1>
-      {/* create links for all subjects, students will be able to 
-      click on the desired subject and answer questions for it without
-      needing to join a class */}
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/english language arts'}>English Language Arts</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/algebra'}>Algebra</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/algebra II'}>Algebra II</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/geometry'}>Geometry</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/united states history and government'}>United States History and Governemnt</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/global history and georgraphy'}>Global History and Geography</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/living environment'}>Living Environment</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/chemistry'}>Chemistry</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/earth science'}>Earth Science</Link>
+      <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/physics'}>Physics</Link>
     </>
 
   )
@@ -28,6 +35,9 @@ const page = async () => {
 export default page
 
 /*
+  **** START CREATING LOGIC TO SEND USER ANSWERS TO THE DATABASE
+  FIGURE OUT HOW TO QUERY DATABASE FOR QUESTIONS THAT A STUDENT
+  HAS NOT ANSWERED YET
   consider creating two different layout components to clean up dashboard
   code. one for teachers and students
  */
