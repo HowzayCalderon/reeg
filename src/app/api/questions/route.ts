@@ -10,7 +10,7 @@ export async function POST(request: NextRequest, response: NextResponse){
             data:{
                 subject: {
                     connect:{
-                        name: data.subject.toLowerCase()
+                        name: data.subject
                     }
                 },
                 difficulty: data.difficulty,

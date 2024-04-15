@@ -29,6 +29,7 @@ export default function Page({ params }: { params: { subject: string }}){
         fetch(`/api/questions/getquestions?name=${params.subject}&user=${session?.user.id}`)
         .then((res) => res.json())
         .then((data) => {
+            console.log(data)
             setQuestions(data)
         })
     },[])
@@ -36,13 +37,13 @@ export default function Page({ params }: { params: { subject: string }}){
 
     return (
         <>
-            <p>{qs[0].que} ?</p>
-            <ol>
+            <p className="border-2 border-black text-center py-4">{qs[0].que} ?</p>
+            <ul className="pl-5 list-decimal">
                 <li>{qs[0].optionOne}</li>
                 <li>{qs[0].optionTwo}</li>
                 <li>{qs[0].optionThree}</li>
                 <li>{qs[0].optionFour}</li>
-            </ol>
+            </ul>
         </>
     )
 }
