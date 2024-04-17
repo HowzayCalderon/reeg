@@ -67,6 +67,7 @@ model Question {
   optionTwo String
   optionThree String
   optionFour String
+  corrAnswer String @default("")
   answer    Answer[]
 }
 
