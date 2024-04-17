@@ -35,9 +35,7 @@ const page = async () => {
 export default page
 
 /*
-  **** START CREATING LOGIC TO SEND USER ANSWERS TO THE DATABASE
-  FIGURE OUT HOW TO QUERY DATABASE FOR QUESTIONS THAT A STUDENT
-  HAS NOT ANSWERED YET
+  
   consider creating two different layout components to clean up dashboard
   code. one for teachers and students
  */

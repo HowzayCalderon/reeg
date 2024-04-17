@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-
+import Quiz from "@/components/Quiz/Quiz";
 
 
 export default function Page({ params }: { params: { subject: string }}){
@@ -37,13 +37,7 @@ export default function Page({ params }: { params: { subject: string }}){
 
     return (
         <>
-            <p className="border-2 border-black text-center py-4">{qs[0].que} ?</p>
-            <ul className="pl-5 list-decimal">
-                <li>{qs[0].optionOne}</li>
-                <li>{qs[0].optionTwo}</li>
-                <li>{qs[0].optionThree}</li>
-                <li>{qs[0].optionFour}</li>
-            </ul>
+            <Quiz A={qs[0].optionOne} B={qs[0].optionTwo} C={qs[0].optionThree} D={qs[0].optionFour} question={qs[0].que} qID={qs[0].id}/>
         </>
     )
 }
@@ -52,7 +46,6 @@ export default function Page({ params }: { params: { subject: string }}){
 /*
     write logic to iterate through array of questions, figure out how the 
     forms of answered questions will be saved and sent to the backend,
-    **** ADD MANY ANSWERS AT ONCE THROUGH THE STUDENT MODEL,
-    I CAN MAKE A API CALL TO THE STUDENT MODEL AND THEN USE A NESTED 
-    CREATEMANY FOR ANSWERS 
+   ADD 'STUDY' AND 'STATS' BUTTONS TO THE DASHBOARD SUBJECT BUTTONS TO 
+   DISTINGUISH BETWEEN SHOWING DATA AND SHOWING QUIZING STUDENTS
  */
