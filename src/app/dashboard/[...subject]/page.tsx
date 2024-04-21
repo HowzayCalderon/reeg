@@ -29,7 +29,6 @@ export default function Page({ params }: { params: { subject: string }}){
         fetch(`/api/questions/getquestions?name=${params.subject}&user=${session?.user.id}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
             setQuestions(data)
         })
     },[])
@@ -37,7 +36,7 @@ export default function Page({ params }: { params: { subject: string }}){
 
     return (
         <>
-            <Quiz A={qs[0].optionOne} B={qs[0].optionTwo} C={qs[0].optionThree} D={qs[0].optionFour} question={qs[0].que} qID={qs[0].id}/>
+            <Quiz questionData={qs}/>
         </>
     )
 }

@@ -1,46 +1,34 @@
 'use client'
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
-interface Options{
-    A: string,
-    B: string,
-    C: string,
-    D: string,
-    question: string,
-    qID: string
-}
 
-function Quiz({A, B, C, D, question, qID}: Options){
 
+function Quiz({questionData}: any){
+    const questionIndex = useRef(0)
+    const currentQuestion = questionData[questionIndex.current]
     const [ansData, setAnsData] = useState([{
-        questionID: "",
-        userAnswer: "",
-        isCorrect: ""
+        qID: "",
+        isCorrect: "",
+        answer: ""
     }])
-
     function handleClick(e:any){
-        e.preventDefault()
-        setAnsData((prevState):any => {
-            [
-                ...prevState,
-                {
-                    questionID: qID,
-                    userAnswer: e?.target?.value,
-                    isCorrect: "false"
-                }
-            ]
-
-        })
-
+        let value = e?.target?.value
+        let checkAnswer = value == currentQuestion.corrAnswer
+        let newAnswer:any = {qID: currentQuestion.id, isCorrect: checkAnswer, answer: value }
+        setAnsData([...ansData, newAnswer])
     }
-    console.log(ansData)
+
+    // useEffect(() => {
+    //     console.log(ansData)
+    // }, [ansData])
     return (
         <>
-            <p className="border-2 border-black text-center py-4">{question} ?</p>
-                <input type="button" className="block pl-5" name={A} onClick={handleClick} value={A}/>
-                <input type="button" className="block pl-5" name={B} onClick={handleClick} value={B}/>
-                <input type="button" className="block pl-5" name={C} onClick={handleClick} value={C}/>
-                <input type="button" className="block pl-5" name={D} onClick={handleClick} value={D}/>
+             <p className="border-2 border-black text-center py-4">{currentQuestion.que} ?</p>
+                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionOne}/>
+                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionTwo}/>
+                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionThree}/>
+                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionFour}/>
+                <input type="button" value={'Next'} className="cursor-pointer" />
         </>
     )
 }
