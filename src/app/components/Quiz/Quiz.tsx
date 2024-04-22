@@ -6,21 +6,27 @@ import { useState, useRef, useEffect } from "react"
 function Quiz({questionData}: any){
     const questionIndex = useRef(0)
     const currentQuestion = questionData[questionIndex.current]
+    const [currentAnswer, setCurrentAnswer] = useState('')
     const [ansData, setAnsData] = useState([{
         qID: "",
         isCorrect: "",
         answer: ""
     }])
     function handleClick(e:any){
-        let value = e?.target?.value
-        let checkAnswer = value == currentQuestion.corrAnswer
-        let newAnswer:any = {qID: currentQuestion.id, isCorrect: checkAnswer, answer: value }
+        let value = e?.target?.value  
+        setCurrentAnswer(value)
+    }
+
+    function handleNext(e:any){
+        let checkAnswer = currentAnswer == currentQuestion.corrAnswer
+        let newAnswer:any = {qID: currentQuestion.id, isCorrect: checkAnswer, answer: currentAnswer }
         setAnsData([...ansData, newAnswer])
     }
 
     // useEffect(() => {
     //     console.log(ansData)
-    // }, [ansData])
+    //     console.log(currentAnswer)
+    // }, [ansData,currentAnswer])
     return (
         <>
              <p className="border-2 border-black text-center py-4">{currentQuestion.que} ?</p>
@@ -28,7 +34,7 @@ function Quiz({questionData}: any){
                 <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionTwo}/>
                 <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionThree}/>
                 <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionFour}/>
-                <input type="button" value={'Next'} className="cursor-pointer" />
+                <input type="button" value={'Next'} className="cursor-pointer" onClick={handleNext} />
         </>
     )
 }
