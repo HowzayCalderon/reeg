@@ -17,10 +17,19 @@ function Quiz({questionData}: any){
         setCurrentAnswer(value)
     }
 
+    function incrementIndex(){
+        if(questionIndex.current < questionData.length - 1){
+            questionIndex.current++
+        }else if(questionIndex.current >= questionData.length - 1){
+            questionIndex.current = questionData.length - 1
+        }
+    }
+
     function handleNext(e:any){
         let checkAnswer = currentAnswer == currentQuestion.corrAnswer
         let newAnswer:any = {qID: currentQuestion.id, isCorrect: checkAnswer, answer: currentAnswer }
         setAnsData([...ansData, newAnswer])
+        incrementIndex()
     }
 
     // useEffect(() => {
@@ -42,8 +51,10 @@ function Quiz({questionData}: any){
 export default Quiz
 
 /*
-    SEND DOWN ALL QUESTIONS FROM PARENT THROUGH PROPS, THEN WRITE LOGIC
-    TO INCREMENT QUESTIONS INSIDE THIS COMPONENT. FINISH WRITING LOGIC 
-    TO SEND ANSWERS TO DATABASE. CONSIDER CREATING A POPUP WINDOW THAT 
-    LETS STUDENTS CHOOSE HOW MANY QUESTIONS THEY ANSWER IN SINGLE SESSION
+    finish writing the handleNext function still having issue when
+    array of questions are done. once all questions are answered
+    UI will display a "Done" button which will have the function
+    that sends all answerData to the DATAbase. CONSIDER CREATING A 
+    POPUP WINDOW THAT LETS STUDENTS CHOOSE HOW MANY QUESTIONS THEY 
+    ANSWER IN SINGLE SESSION
  */
