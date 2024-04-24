@@ -32,6 +32,10 @@ function Quiz({questionData}: any){
         incrementIndex()
     }
 
+    function handleDone(){
+        
+    }
+
     // useEffect(() => {
     //     console.log(ansData)
     //     console.log(currentAnswer)
@@ -43,7 +47,7 @@ function Quiz({questionData}: any){
                 <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionTwo}/>
                 <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionThree}/>
                 <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleClick} value={currentQuestion.optionFour}/>
-                <input type="button" value={'Next'} className="cursor-pointer" onClick={handleNext} />
+                {questionIndex.current >= questionData.length - 1 ? <input type="button" value={"Done"} /> : <input type="button" value={'Next'} className="cursor-pointer" onClick={handleNext} />}
         </>
     )
 }
