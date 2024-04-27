@@ -36,7 +36,7 @@ export default function Page({ params }: { params: { subject: string }}){
 
     return (
         <>
-            <Quiz questionData={qs}/>
+            <Quiz questionData={qs} userID={session?.user?.id}/>
         </>
     )
 }
