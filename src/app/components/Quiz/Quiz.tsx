@@ -7,7 +7,7 @@ function Quiz({questionData, userID}: any){
     const currentQuestion = questionData[questionIndex.current]
     const [currentAnswer, setCurrentAnswer] = useState<string>()
     const [userDone, setUserDone] = useState<boolean>(false)
-    const [ansData, setAnsData] = useState<{}[]>()
+    const [ansData, setAnsData] = useState<[]>()
 
     function handleOption(e:any){
         let value = e?.target?.value  
@@ -25,12 +25,18 @@ function Quiz({questionData, userID}: any){
     function handleNext(e:any){
         let checkAnswer = currentAnswer == currentQuestion.corrAnswer
         let newAnswer:any = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
-        let newData: any = [...[ansData], newAnswer]
+        let newData: any = ([ansData])
+        newData.push(newAnswer)
         incrementIndex()
-        setAnsData(newData.slice(1))
+        setAnsData(newData)
     }
 
     function handleDone(){ 
+        let checkAnswer = currentAnswer == currentQuestion.corrAnswer
+        let newAnswer:any = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
+        let newData: any = (ansData)
+        newData.push(newAnswer)
+        setAnsData(newData.slice(1))
         setUserDone(true)
     }
 
@@ -74,6 +80,3 @@ export default Quiz
  */
 
 
-/*
-    CONSIDER SENDING A SEPARATE FETCH REQUEST FOR EACH ANSWER 
-*/
