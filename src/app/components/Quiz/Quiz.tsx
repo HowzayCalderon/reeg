@@ -7,7 +7,7 @@ function Quiz({questionData, userID}: any){
     const currentQuestion = questionData[questionIndex.current]
     const [currentAnswer, setCurrentAnswer] = useState<string>()
     const [userDone, setUserDone] = useState<boolean>(false)
-    const [ansData, setAnsData] = useState<[]>()
+    const [ansData, setAnsData] = useState<[]>([])
 
     function handleOption(e:any){
         let value = e?.target?.value  
@@ -24,9 +24,8 @@ function Quiz({questionData, userID}: any){
 
     function handleNext(e:any){
         let checkAnswer = currentAnswer == currentQuestion.corrAnswer
-        let newAnswer:any = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
-        let newData: any = ([ansData])
-        newData.push(newAnswer)
+        let newAnswer: {} = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
+        let newData: any = [...ansData, newAnswer]
         incrementIndex()
         setAnsData(newData)
     }
@@ -34,9 +33,8 @@ function Quiz({questionData, userID}: any){
     function handleDone(){ 
         let checkAnswer = currentAnswer == currentQuestion.corrAnswer
         let newAnswer:any = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
-        let newData: any = (ansData)
-        newData.push(newAnswer)
-        setAnsData(newData.slice(1))
+        let newData: any = [...ansData, newAnswer]
+        setAnsData(newData)
         setUserDone(true)
     }
 
