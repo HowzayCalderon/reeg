@@ -37,6 +37,7 @@ model Student {
   Class      Class[]
   classId    Int?
   answers    Answer[]
+  performance TopicPerformance[]
 }
 
 model Class {
@@ -54,14 +55,34 @@ model Subject {
   name      String    @unique
   questions Question[] 
   classes   Class[]
+  topics    Topic[]
 } 
+
+model Topic {
+  id        Int     @id @default(autoincrement())
+  name      String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+  questions Question[]
+  performances TopicPerformance[]
+}
+
+model TopicPerformance {
+  id        Int    @id @default(autoincrement()) 
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  topic     Topic   @relation(fields: [topicId], references: [id])
+  topicId   Int
+  attemps   Int
+}
 
 model Question {
   id        Int     @id @default(autoincrement())
   subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
-  difficulty String
-  topic     String  
+  difficulty String 
+  topic     Topic   @relation(fields: [topicId], references: [id])
+  topicId   Int     
   que       String  @unique
   optionOne String
   optionTwo String

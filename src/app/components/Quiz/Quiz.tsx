@@ -70,6 +70,10 @@ function Quiz({questionData, userID}: any){
 export default Quiz
 
 /*
+    THE ADD ANSWERS ROUTE WILL LOG ANSWERS TO THE DATABASE AS WELL AS 
+    ADD STUDENT PERFORMANCE UPDATES TO THE DATABASE (2 QUERIES, 1 ROUTE)
+
+    
     once all questions are answered
     UI will display a "Done" button which will have the function
     that sends all answerData to the DATAbase. CONSIDER CREATING A 

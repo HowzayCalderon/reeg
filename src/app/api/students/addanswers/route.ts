@@ -17,6 +17,7 @@ export async function PUT(request: NextRequest){
                 }
             }
         })
+        const logPerformance = ''
         return new Response("Success",resOptions)
     } catch (error: any) {
         const resOptions = {status: 400, statusText: 'failed'}
