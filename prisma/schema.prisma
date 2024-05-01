@@ -60,7 +60,7 @@ model Subject {
 
 model Topic {
   id        Int     @id @default(autoincrement())
-  name      String
+  name      String  @unique
   subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
   questions Question[]
