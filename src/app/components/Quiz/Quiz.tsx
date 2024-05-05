@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from "react"
-
+import QuizResult from "../Popup/QuizResult"
 
 function Quiz({questionData, userID}: any){
     const questionIndex = useRef(0)
@@ -54,15 +54,18 @@ function Quiz({questionData, userID}: any){
             sendData()
         }
     }, [userDone])
-    
+
+    // button styling (base)
+    let base = 'block pl-5 cursor-pointer'
     return (
         <>
                 <p className="border-2 border-black text-center py-4">{currentQuestion.que} ?</p>
-                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionOne}/>
-                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionTwo}/>
-                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionThree}/>
-                <input type="button" className="block pl-5 cursor-pointer" name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionFour}/>
+                <input type="button" className={base} name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionOne}/>
+                <input type="button" className={base} name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionTwo}/>
+                <input type="button" className={base} name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionThree}/>
+                <input type="button" className={base} name={"userAnswer"} onClick={handleOption} value={currentQuestion.optionFour}/>
                 {questionIndex.current >= questionData.length - 1 ? <input type="button" className="cursor-pointer" value={"Done"} onClick={handleDone}/> : <input type="button" value={'Next'} className="cursor-pointer" onClick={handleNext} />}
+                { userDone ? <QuizResult questionsAnswered={5} correctAnswers={3}/> : null}
         </>
     )
 }
@@ -73,7 +76,7 @@ export default Quiz
     THE ADD ANSWERS ROUTE WILL LOG ANSWERS TO THE DATABASE AS WELL AS 
     ADD STUDENT PERFORMANCE UPDATES TO THE DATABASE (2 QUERIES, 1 ROUTE)
 
-    
+
     once all questions are answered
     UI will display a "Done" button which will have the function
     that sends all answerData to the DATAbase. CONSIDER CREATING A 

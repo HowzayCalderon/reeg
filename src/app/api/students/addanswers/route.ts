@@ -14,10 +14,9 @@ export async function PUT(request: NextRequest){
                     createMany: {
                         data: data
                     }
-                }
+                },
             }
         })
-        const logPerformance = ''
         return new Response("Success",resOptions)
     } catch (error: any) {
         const resOptions = {status: 400, statusText: 'failed'}

@@ -5,7 +5,7 @@ export async function PATCH(request: NextRequest, response: NextResponse){
     try{
         const data = await request.json()
         if(data.role == "Teacher"){
-            const updateRole = await prisma.user.update({
+            const updateTeacherRole = await prisma.user.update({
                 where: {
                     id: data.id
                 },
@@ -26,7 +26,24 @@ export async function PATCH(request: NextRequest, response: NextResponse){
             })
         }
         else if(data.role == "Student"){
-            console.log("Cool story bro")
+            const updateStudentRole = await prisma.user.update({
+                where: {
+                    id: data.id
+                },
+                data: {
+                    role: data.role,
+                    Student: {
+                        connectOrCreate: {
+                            where: {
+                                userId: data.id
+                            },
+                            create: {
+                                gradelevel: data.gradeLevel 
+                            }
+                        }
+                    }
+                }
+            })
         }
         return new Response("Success")
     }catch(e:any){
