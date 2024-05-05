@@ -14,6 +14,7 @@ function Quiz({questionData, userID}: any){
     const [userDone, setUserDone] = useState<boolean>(false)
     const [ansData, setAnsData] = useState<[]>([])
 
+    // clears button highlight
     function clearButtons(){
         const buttons = [buttonOne, buttonTwo, buttonThree, buttonFour]
         buttons.forEach((button) => {
