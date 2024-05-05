@@ -8,11 +8,11 @@ interface props {
 function QuizResult({questionsAnswered, correctAnswers}: props) {
   return (
     <>
-        <section className='bg-slate-100 w-3/4 mx-auto h-1/2 fixed left-28'>
-            <h1>Great Job!</h1>
-            <p>You scored:</p>
-            <p>{`${questionsAnswered}/ ${correctAnswers}` }</p>
-            <p>Correctly</p>
+        <section className='bg-slate-100 w-3/4 mx-auto h-1/2 fixed left-28 flex flex-col justify-center'>
+            <h1 className='text-center text-5xl'>Great Job!</h1>
+            <p className='text-center'>You answered:</p>
+            <p className='text-center'>{`${correctAnswers}/${questionsAnswered}`}</p>
+            <p className='text-center'>Correctly</p>
         </section>
     </>
   )
