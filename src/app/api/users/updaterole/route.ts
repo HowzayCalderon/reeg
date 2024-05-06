@@ -32,6 +32,7 @@ export async function PATCH(request: NextRequest, response: NextResponse){
                 },
                 data: {
                     role: data.role,
+                    username: data.username,
                     Student: {
                         connectOrCreate: {
                             where: {
