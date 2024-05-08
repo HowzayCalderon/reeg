@@ -39,7 +39,7 @@ export async function PATCH(request: NextRequest, response: NextResponse){
                                 userId: data.id
                             },
                             create: {
-                                gradelevel: data.gradeLevel 
+                                gradelevel: Number(data.gradeLevel)
                             }
                         }
                     }

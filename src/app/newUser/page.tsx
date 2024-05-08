@@ -12,7 +12,7 @@ const Page = () => {
     const [formData, setFormData] = useState({
         role: "",
         username: "",
-        gradLevel: 0,
+        gradeLevel: "",
         email: session?.user.email,
         id: session?.user.id
     })
@@ -34,6 +34,7 @@ const Page = () => {
         }else if(value == "Teacher"){
             grade.current ? grade.current.className = hidden : null
         }
+        console.log(formData)
     }
 
     const handleSubmit = async (e: any) => {
@@ -43,7 +44,7 @@ const Page = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email, id: formData.id})
+            body: JSON.stringify({role: formData.role, username: formData.username, email: formData.email, id: formData.id, gradeLevel: formData.gradeLevel})
             }).then(() => {
                 router.push('/dashboard')
             })
@@ -67,7 +68,7 @@ const Page = () => {
                 <button  id="teacher" onClick={handleChange} name="role" value="Teacher">Teacher</button>
                 <button id="student" name="role" onClick={handleChange}value="Student">Student</button>
                 <input onChange={handleChange} className="col-span-2 content-center"type="text" name="username" id="username" placeholder="Username"/>
-                <input type="number" ref={grade} onClick={handleChange}  className={hidden} name="gradeLevel" id="gradeLevel" placeholder="Grade" max={12} min={9}/>
+                <input type="number" ref={grade} onChange={handleChange}  className={hidden} name="gradeLevel" id="gradeLevel" placeholder="Grade" max={12} min={9}/>
                 <button className="block border-2 col-span-2" type="submit">Submit</button>
             </form>
         </div>
