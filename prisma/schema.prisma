@@ -20,19 +20,19 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Teacher       Teacher?
-  Student       Student?
+  Student       Student? 
 }
 
 model Teacher {
   id        Int     @id @default(autoincrement())
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String  @unique
   classlist Class[]
 }
 
 model Student {
   id         Int     @id @default(autoincrement())
-  user       User    @relation(fields: [userId], references: [id])
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String  @unique
   gradelevel Int
   Class      Class[]
@@ -98,7 +98,7 @@ model Answer {
   question Question @relation(fields: [questionId], references: [id])
   questionId Int    @unique
   userAnswer String
-  student   Student @relation(fields:[studentId], references: [id])
+  student   Student @relation(fields:[studentId], references: [id], onDelete: Cascade)
   studentId Int 
   isCorrect Boolean 
 }
