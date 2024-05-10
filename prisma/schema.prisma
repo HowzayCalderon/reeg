@@ -75,6 +75,8 @@ model TopicPerformance {
   topic     Topic   @relation(fields: [topicId], references: [id])
   topicId   Int
   attemps   Int
+  wins      Int
+  rate      Float
 }
 
 model Question {

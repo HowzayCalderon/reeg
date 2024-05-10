@@ -22,7 +22,7 @@ export default function Page({ params }: { params: { subject: string }}){
     optionTwo: "",
     que: "", 
     subjectId: "",
-    topic: ""
+    topicId: 0
     }])
     
     useEffect(() => {
@@ -30,6 +30,7 @@ export default function Page({ params }: { params: { subject: string }}){
         .then((res) => res.json())
         .then((data) => {
             setQuestions(data)
+            console.log(data)
         })
     },[])
 

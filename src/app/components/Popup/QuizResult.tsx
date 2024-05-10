@@ -21,7 +21,3 @@ function QuizResult({questionsAnswered, correctAnswers}: props) {
 export default QuizResult
 
 
-/*
-    work on having the project deployed and functional to show 
-    people what you are working on. 
-*/

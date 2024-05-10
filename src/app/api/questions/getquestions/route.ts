@@ -20,6 +20,12 @@ export async function GET(request: NextRequest){
                         }
                     }
                 }
+            },include: {
+                topic: {
+                    select: {
+                        id: true
+                    }
+                }
             }
         })
         .then((question) => {
