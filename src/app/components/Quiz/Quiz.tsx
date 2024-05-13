@@ -12,7 +12,7 @@ function Quiz({questionData, userID}: any){
     const [currentAnswer, setCurrentAnswer] = useState<string>()
     const [corrAnswers, setCorrAnswers] = useState<number>(0)
     const [userDone, setUserDone] = useState<boolean>(false)
-    const [ansData, setAnsData] = useState<[]>([])
+    const [ansData, setAnsData] = useState<{userAnswer: string}>({userAnswer: ''})
 
     // clears button highlight
     function clearButtons(){
@@ -39,22 +39,20 @@ function Quiz({questionData, userID}: any){
         }
     }
 
-    function handleNext(e:any){
+    async function handleNext(e:any){
         let checkAnswer = currentAnswer == currentQuestion.corrAnswer
         checkAnswer ? setCorrAnswers(prev => prev + 1) : null
-        let newAnswer: {} = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
-        let newData: any = [...ansData, newAnswer]
+        let newAnswer: any = {topicId: currentQuestion.topicId, questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
         incrementIndex()
         clearButtons()
-        setAnsData(newData)
+        setAnsData(newAnswer)
     }
 
     function handleDone(){ 
         let checkAnswer = currentAnswer == currentQuestion.corrAnswer
         checkAnswer ? setCorrAnswers(prev => prev + 1) : null
-        let newAnswer:any = {questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
-        let newData: any = [...ansData, newAnswer]
-        setAnsData(newData)
+        let newAnswer:any = {topicId: currentQuestion.topicId, questionId: currentQuestion.id, isCorrect: checkAnswer, userAnswer: currentAnswer }
+        setAnsData(newAnswer)
         setUserDone(true)
     }
 
@@ -69,11 +67,11 @@ function Quiz({questionData, userID}: any){
     }
 
     useEffect(() => {
-        if(userDone){
+        if(userDone || ansData.userAnswer !== "" ){
             console.log(ansData)
             sendData()
         }
-    }, [userDone])
+    }, [userDone, ansData])
 
     // button styling 
     let base = 'block pl-5 cursor-pointer'

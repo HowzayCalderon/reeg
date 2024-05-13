@@ -73,10 +73,9 @@ model TopicPerformance {
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
   topic     Topic   @relation(fields: [topicId], references: [id])
-  topicId   Int
-  attemps   Int
-  wins      Int
-  rate      Float
+  topicId   Int     @unique
+  attempts  Int     @default(0)
+  wins      Int     @default(0)
 }
 
 model Question {

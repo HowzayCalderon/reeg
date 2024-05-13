@@ -23,10 +23,11 @@ export async function GET(request: NextRequest){
             },include: {
                 topic: {
                     select: {
-                        id: true
+                        id: true,
                     }
-                }
-            }
+                },
+                
+            },
         })
         .then((question) => {
             resMessage = JSON.stringify(question)
