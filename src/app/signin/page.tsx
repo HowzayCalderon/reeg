@@ -28,7 +28,7 @@ const SignIn = () => {
         const result = await signIn("credentials", {
             username: formData.name,
             password: formData.password,
-            callbackUrl: '/dashboard'
+            callbackUrl: 'https://reeg.vercel.app/dashboard'
         })
     }
     
