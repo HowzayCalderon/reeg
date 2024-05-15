@@ -12,7 +12,7 @@ export const prisma = new PrismaClient()
 export const options: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     session:{
-        strategy: "database"
+        strategy: "jwt"
     },
     pages:{
         signIn: "/signin",
