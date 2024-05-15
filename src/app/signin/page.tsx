@@ -29,7 +29,7 @@ const SignIn = () => {
         const result = await signIn("credentials", {
             username: formData.name,
             password: formData.password,
-            // callbackUrl: location.hostname == "localhost" ? 'http://localhost:3000' : 'https://reeg.vercel.app/dashboard'
+            callbackUrl: location.hostname == "localhost" ? 'http://localhost:3000' : 'https://reeg.vercel.app/dashboard'
         })
     }
 
