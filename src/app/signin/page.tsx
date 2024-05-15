@@ -5,6 +5,7 @@ import Form from "@/components/UserForm/Form";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc"
 import { FaTwitch } from "react-icons/fa"
+import { hostname } from "os";
 
 const SignIn = () => {
     
@@ -28,10 +29,10 @@ const SignIn = () => {
         const result = await signIn("credentials", {
             username: formData.name,
             password: formData.password,
-            callbackUrl: 'https://reeg.vercel.app/dashboard'
+            // callbackUrl: location.hostname == "localhost" ? 'http://localhost:3000' : 'https://reeg.vercel.app/dashboard'
         })
     }
-    
+
     const data = [
         {
             key: 0,
