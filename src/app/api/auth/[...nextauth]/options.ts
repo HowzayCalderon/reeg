@@ -2,7 +2,7 @@ import type { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import TwitchProvider from "next-auth/providers/twitch";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt'
 
@@ -10,10 +10,9 @@ export const prisma = new PrismaClient()
 
 
 export const options: NextAuthOptions = {
-    adapter: PrismaAdapter(prisma),
     debug: true,
     session:{
-        strategy: "database"
+        strategy: "jwt"
     },
     pages:{
         signIn: "/signin",
@@ -73,6 +72,8 @@ export const options: NextAuthOptions = {
             session.user.id = user.id
             session.user.username = user.username
             session.user.role = user.role
+            session.user.email = user. email
+            session.user.name = user.name
             return session
         }
     }
