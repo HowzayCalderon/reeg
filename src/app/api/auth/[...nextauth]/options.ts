@@ -2,18 +2,23 @@ import type { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import TwitchProvider from "next-auth/providers/twitch";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt'
 
 export const prisma = new PrismaClient()
 
-
 export const options: NextAuthOptions = {
-    debug: true,
-    session:{
+    adapter: PrismaAdapter(prisma),
+    events: {
+        async signIn(message){
+            console.log("is this a new user?",message.isNewUser, message.profile, message.user, message.account)
+        }
+    },
+    session: {
         strategy: "jwt"
     },
+    debug: true,
     pages:{
         signIn: "/signin",
         newUser: "/newUser"
@@ -68,15 +73,29 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        session({ session, user }){
-            session.user.id = user.id
-            session.user.username = user.username
-            session.user.role = user.role
-            session.user.email = user. email
-            session.user.name = user.name
+        async jwt({token, account, user}){
+            token.id = account?.userId
+            token.accessToken = account?.access_token
+            token.role 
+            if(account?.provider !== 'credentials'){
+                const res = await fetch(`http://localhost:3000/api/users/user?email=${token.email}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("this is the data",data)
+                    token.role = data.role
+            })
+
+            }
+            return token
+        },
+        async session({ session, token}){
+            session.user.email = token.email
+            session.user.name =  token.name
+            session.user.role = token.role
             return session
-        }
+        },
     }
 }
 
 
+// CONSIDER REMOVING CREDENTIALS PROVIDER AND ADDING EMAIL SIGNIN INSTEAD

@@ -5,18 +5,29 @@ export async function GET(req: NextRequest, res: NextResponse){
     try{
         const searchParams = req.nextUrl.searchParams;
         const getUserName: string | null = searchParams.get('username');
+        const getEmail: string | null = searchParams.get('email')
         const resOptions = { status: 200, statusText: "OK"};
         let resMessage: any = "";
 
-
-            const getUser = await prisma.user.findUnique({
-                where: {
-                    username: getUserName as string 
-                }
-            }).then((user) => {
-                resMessage = JSON.stringify(user)
-            })
-            return new Response(resMessage, resOptions)
+            if(getUserName){
+                const getUser = await prisma.user.findUnique({
+                    where: {
+                        username: getUserName as string 
+                    }
+                }).then((user) => {
+                    resMessage = JSON.stringify(user)
+                })
+                return new Response(resMessage, resOptions)
+            }else{
+                const getEmailUser = await prisma.user.findUnique({
+                    where: {
+                        email: getEmail as string
+                    }
+                }).then((user) => {
+                    resMessage = JSON.stringify(user)
+                })
+                return new Response(resMessage, resOptions)
+            }
         
     }catch(err: any){
 

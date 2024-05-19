@@ -11,12 +11,12 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String    @default("")
-  password      String    @default("")
+  password      String?    @default("")
   image         String?
   email         String?   @unique
   emailVerified DateTime?
   username      String?   @unique 
-  role          Role      @default(Student)
+  role          Role      @default(New)
   accounts      Account[]
   sessions      Session[]
   Teacher       Teacher?
@@ -144,4 +144,5 @@ enum Role {
   Teacher
   Student
   Admin
+  New
 }
