@@ -1,11 +1,8 @@
 'use client'
 import React from "react";
-import { useState } from "react";
-import Form from "@/components/UserForm/Form";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc"
 import { FaTwitch } from "react-icons/fa"
-import { hostname } from "os";
 
 const SignIn = () => {
 

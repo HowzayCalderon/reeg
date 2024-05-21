@@ -6,13 +6,11 @@ interface props {
     id: String
 }
 
-function Sdashboard({username, role, id}: props){
+function Sdashboard(){
 
     return(
         <>
-            <p> Hello, {username ? username : role}</p>
-            <p>{id}</p>
-            <p>{role}</p>
+            <p> Hello, Student</p>
             <h1 className='text-3xl pt-2'>Classes</h1>
             <h1 className='text-3xl pt-2'>Subjects</h1>
             <Link className='border-black border-2 p-1 inline-block mb-1 mr-1'href={'/dashboard/english language arts'}>English Language Arts</Link>
