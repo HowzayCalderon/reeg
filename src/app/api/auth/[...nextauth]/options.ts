@@ -34,19 +34,17 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({token, account, user}){
+        async jwt({token, account, trigger}){
             token.id = account?.userId
             token.accessToken = account?.access_token
-            token.role 
-            if(account?.provider !== 'credentials'){
-                const res = await fetch(`http://localhost:3000/api/users/user?email=${token.email}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("this is the data",data)
-                    token.role = data.role
+            const role = await prisma.user.findUnique({
+                where: {email: token.email} as any,
+                select: {
+                    role: true 
+                }
             })
+            token.role = role?.role 
 
-            }
             return token
         },
         async session({ session, token}){

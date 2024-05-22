@@ -7,18 +7,13 @@ export async function PATCH(request: NextRequest, response: NextResponse){
         if(data.role == "Teacher"){
             const updateTeacherRole = await prisma.user.update({
                 where: {
-                    id: data.id
+                    email: data.email
                 },
                 data: {
                     role: data.role,
                     Teacher: {
-                        connectOrCreate: {
-                            where: {
-                                userId: data.id,
-                            },
-                            create:{
-
-                            }
+                        create: {
+                            
                         }
                     }
                 }
@@ -27,19 +22,14 @@ export async function PATCH(request: NextRequest, response: NextResponse){
         else if(data.role == "Student"){
             const updateStudentRole = await prisma.user.update({
                 where: {
-                    id: data.id
+                    email: data.email
                 },
                 data: {
                     role: data.role,
                     Student: {
-                        connectOrCreate: {
-                            where: {
-                                userId: data.id
-                            },
                             create: {
                                 gradelevel: Number(data.gradeLevel)
                             }
-                        }
                     }
                 }
             })

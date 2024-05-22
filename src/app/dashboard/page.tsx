@@ -15,7 +15,7 @@ const page = async () => {
 
   return (
     <>
-      {session?.user?.role == "Student" ? <Sdashboard /> : <Tdashboard/>}
+      {session?.user?.role == "Student" ? <Sdashboard /> : <Tdashboard role={session.user.role}/>}
     </>
 
   )
