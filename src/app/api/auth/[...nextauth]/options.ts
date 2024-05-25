@@ -34,7 +34,7 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({token, account, trigger}){
+        async jwt({token, account}){
             token.id = account?.userId
             token.accessToken = account?.access_token
             const role = await prisma.user.findUnique({
