@@ -37,20 +37,22 @@ export const options: NextAuthOptions = {
         async jwt({token, account}){
             token.id = account?.userId
             token.accessToken = account?.access_token
-            const role = await prisma.user.findUnique({
+            const user = await prisma.user.findUnique({
                 where: {email: token.email} as any,
                 select: {
+                    id: true,
                     role: true 
                 }
             })
-            token.role = role?.role 
-
+            token.role = user?.role 
+            token.id = user?.id
             return token
         },
         async session({ session, token}){
             session.user.email = token.email
             session.user.name =  token.name
             session.user.role = token.role
+            session.user.id = token.id
             return session
         },
     }

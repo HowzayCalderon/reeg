@@ -24,6 +24,13 @@ export async function GET(request: NextRequest){
                 topic: {
                     select: {
                         id: true,
+                        performances: {
+                            where: {
+                                student: {
+                                    userId: getStudent as string 
+                                }
+                            }
+                        }
                     }
                 },
                 
