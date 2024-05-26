@@ -76,6 +76,7 @@ model TopicPerformance {
   topicId   Int     @unique
   attempts  Int     @default(0)
   wins      Int     @default(0)
+  percentage Float?  
 }
 
 model Question {
