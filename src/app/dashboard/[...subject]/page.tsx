@@ -10,7 +10,7 @@ export default function Page({ params }: { params: { subject: string }}){
     const { data: session } = useSession({
         required: true,
         onUnauthenticated(){
-            redirect('/signin')
+            redirect('/')
         }
     })
     const [ qs, setQuestions] = useState([{

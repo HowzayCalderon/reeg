@@ -1,10 +1,21 @@
 import { prisma } from "@/api/auth/[...nextauth]/options";
+import { NextRequest } from "next/server";
 
-export async function GET(){
+export async function GET(request: NextRequest){
     try{
         let resMessage: any;
         const resOptions = { status: 200, statusText: 'OK'};
-        const getClasses = await prisma.class.findMany()
+        const searchParams = request.nextUrl.searchParams
+        const getTeacherId:any = searchParams.get('id');
+        const getClasses = await prisma.class.findMany({
+            where: {
+                Teacher: {
+                    user: {
+                        id: getTeacherId
+                    }
+                }
+            }
+        })
         .then((data) => {
             resMessage = JSON.stringify(data)
         })

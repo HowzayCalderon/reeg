@@ -5,7 +5,9 @@ function Tdashboard({role}: any) {
 
   return (
     <>
-        <p>teacher dashboard</p>
+        <div className='my-4'>
+          <h1 className='[border-bottom:solid] w-3/4'>Classes</h1>
+        </div>
     </>
   )
 }
