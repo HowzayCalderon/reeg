@@ -14,7 +14,7 @@ function Nav() {
       { session ? <Link href={'/dashboard'}>Reeg.</Link> : <Link href={'/'}>Reeg.</Link>}
       <ul className='flex'>
         <li>
-          {session ? <Link href={'/api/auth/signout?callbackUrl=/'}>Sign Out</Link> :  <Link href={'/signin'}>Sign In</Link>}
+          {session ? <Link href={'/api/auth/signout?callbackUrl=/'}>Sign Out</Link> :  null}
         </li>
       </ul>
     </nav>

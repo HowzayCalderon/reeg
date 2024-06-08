@@ -37,7 +37,7 @@ export async function GET(request: NextRequest){
         if(checkPromise && getPerformance){
             console.log('the performance:',getPerformance)
             for(let x=0; topicCount > 0; x++){
-                if(getPerformance[x].percentage < 50){
+                if(getPerformance[x].percentage < 60){
                     questionTopics.push(getPerformance[x].topic.name)
                     topicCount--
                 }
