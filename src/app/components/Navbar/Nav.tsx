@@ -10,13 +10,16 @@ function Nav() {
   const {data: session } = useSession()
   const pathname = usePathname()
   return (
-    <nav className='flex justify-between p-1 border-black border-2'>
-      { session ? <Link href={'/dashboard'}>Reeg.</Link> : <Link href={'/'}>Reeg.</Link>}
-      <ul className='flex'>
-        <li>
-          {session ? <Link href={'/api/auth/signout?callbackUrl=/'}>Sign Out</Link> :  null}
-        </li>
+    <nav className='p-1 border-black border-2 rounded h-full w-full'>
+      <div>
+        { session ? <Link href={'/dashboard'}>Reeg.</Link> : <Link href={'/'}>Reeg.</Link>}
+        <ul className='flex'>
+          <li>
+            {session ? <Link href={'/api/auth/signout?callbackUrl=/'}>Sign Out</Link> :  null}
+          </li>
       </ul>
+
+      </div>
     </nav>
   )
 }

@@ -18,7 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <Authprovider>
         <body>
-            <Nav></Nav>
             {children}
         </body>
       </Authprovider>
