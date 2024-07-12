@@ -2,13 +2,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-function Tdashboard({role}: any) {
+function Tdashboard({role, id}: any) {
   function getTeacher(){
-    const res = fetch('http://localhost:3000/api/teachers')
+    const res = fetch(`http://localhost:3000/api/teacher/find?id=${id}`,{
+      
+    })
   }
 
   useEffect(() => {
-
+    getTeacher()
   }, [])
 
   return (
@@ -26,7 +28,6 @@ function Tdashboard({role}: any) {
 export default Tdashboard
 
 /* 
-  REARRANGE THE TEACHER ROUTE TO SPLIT GET AND POST INTO TEACHER/TEACHER AND 
-  TEACHER/TEACHERS AND REWRITE TEACHER GET METHOD TO INCLUDE CLASS INFO
+      REWRITE TEACHER GET METHOD TO INCLUDE CLASS INFO
   .. FINISH FETCH CALL FOR TEACHER DASHBOARD INFORMATION
 */
