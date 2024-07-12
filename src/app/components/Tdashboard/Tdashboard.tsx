@@ -3,14 +3,25 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 
 function Tdashboard({role, id}: any) {
-  function getTeacher(){
-    const res = fetch(`http://localhost:3000/api/teacher/find?id=${id}`,{
-      
+  const [tData, setTData] = useState({})
+
+   async function getTeacher(){
+    const res = await fetch(`http://localhost:3000/api/teacher/find?id=${id}`,{
+      method: "GET",
+      headers:{
+        "Content-type": "application/json"
+    }
+    }).then((data) => data.json)
+    .then((response) => {
+      setTData(response)
+      console.log(response)
     })
+    
   }
 
   useEffect(() => {
     getTeacher()
+    
   }, [])
 
   return (
