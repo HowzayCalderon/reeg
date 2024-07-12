@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "../auth/[...nextauth]/options";
+import { prisma } from "@/api/auth/[...nextauth]/options";
 
 export async function POST( request: NextRequest, response: NextResponse){
     try{
@@ -17,20 +17,5 @@ export async function POST( request: NextRequest, response: NextResponse){
     }catch(e:any){
         console.error(e)
         return new Response("You failed");
-    }
-}
-
-export async function GET(req: NextRequest, res: NextResponse){
-    try{
-        const resOptions = { status: 200, statusText: "Success"}
-        let resMessage: any;
-        const getTeachers = await prisma.teacher.findMany(
-        ).then((res) => {
-            resMessage = JSON.stringify(res)
-        })
-        return new Response(resMessage, resOptions)
-    }catch(e:any){
-
-        return new Response("it failed");
     }
 }
