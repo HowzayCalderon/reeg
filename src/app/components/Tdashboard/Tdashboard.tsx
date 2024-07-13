@@ -5,22 +5,14 @@ import { useEffect, useState } from 'react'
 function Tdashboard({role, id}: any) {
   const [tData, setTData] = useState({})
 
-   async function getTeacher(){
-    const res = await fetch(`http://localhost:3000/api/teacher/find?id=${id}`,{
-      method: "GET",
-      headers:{
-        "Content-type": "application/json"
-    }
-    }).then((data) => data.json)
-    .then((response) => {
-      setTData(response)
-      console.log(response)
-    })
-    
-  }
-
+  
   useEffect(() => {
-    getTeacher()
+    fetch(`http://localhost:3000/api/teacher/find?id=${id}`)
+    .then((data) => data.json())
+    .then((res) => {
+      console.log(res)
+      setTData(res)
+    })
     
   }, [])
 
@@ -39,6 +31,5 @@ function Tdashboard({role, id}: any) {
 export default Tdashboard
 
 /* 
-      REWRITE TEACHER GET METHOD TO INCLUDE CLASS INFO
-  .. FINISH FETCH CALL FOR TEACHER DASHBOARD INFORMATION
+  TWEAK DATABASE CALL TO RETURN CLASSES AND STUDENT INFO 
 */

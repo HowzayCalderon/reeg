@@ -13,27 +13,14 @@ export async function GET(req: NextRequest, res: NextResponse){
                 userId: teacherId as string 
             }, 
             include: {
-                classlist: {
-                    select:{
-                        classname: true,
-                        topic: true
-                    },
-                    include: {
-                        students:{
-                            select: {
-                                user: true,
-                                performance: true
-                            }
-                        }
-                    }
-                }
+                classlist: true
             }
         }).then((res) => {
             resMessage = JSON.stringify(res)
         })
         return new Response(resMessage, resOptions)
     }catch(e:any){
-
-        return new Response("it failed");
+        console.log(e)
+        return new Response(e);
     }
 }
