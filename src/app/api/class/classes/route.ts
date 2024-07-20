@@ -14,6 +14,12 @@ export async function GET(request: NextRequest){
                         id: getTeacherId
                     }
                 }
+            }, include: {
+                students: {
+                    include: {
+                        performance: true
+                    }
+                }
             }
         })
         .then((data) => {
