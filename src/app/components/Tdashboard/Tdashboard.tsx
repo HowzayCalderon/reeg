@@ -7,8 +7,11 @@ function Tdashboard({role, id}: any) {
 
   
   useEffect(() => {
-    fetch(`http://localhost:3000/api/teacher/find?id=${id}`)
-    .then((data) => data.json())
+    Promise.all([
+      fetch(`http://localhost:3000/api/teacher/find?id=${id}`),
+      fetch(`http://localhost:3000/api/class/classes?id=${id}`)
+    ])
+    .then((res) => Promise.all(res.map(r => r.json())))
     .then((res) => {
       console.log(res)
       setTData(res)
