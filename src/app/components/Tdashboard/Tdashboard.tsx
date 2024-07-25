@@ -3,8 +3,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 
 function Tdashboard({role, id}: any) {
-  const [tData, setTData] = useState({})
-
+  const [teachData, setTeacherData] = useState()
+  const [classData, setClassData] = useState()
   
   useEffect(() => {
     Promise.all([
@@ -14,7 +14,8 @@ function Tdashboard({role, id}: any) {
     .then((res) => Promise.all(res.map(r => r.json())))
     .then((res) => {
       console.log(res)
-      setTData(res)
+      setTeacherData(res[0])
+      setClassData(res[1])
     })
     
   }, [])
@@ -34,9 +35,8 @@ function Tdashboard({role, id}: any) {
 export default Tdashboard
 
 /* 
-  SPLIT THE API CALLS SO THE TEACHER ROUTE RETURNS TEACHER & CLASSLIST,
-  THEN CREATE A ROUTE FOR CLASSES THAT RETURN THE ADDITIONAL CLASS AND 
-  STUDENT INFORMATION FOR BETTER PERFORMANCE AND SIMPLICITY 
+  FIND A WAY TO SPLIT THE DATA RETURNED FROM THE PROMISE.ALL() FOR EASE OF
+  USE
 
   **** CREATE COMPONENT FOR CLASSLIST (HAMBURGER COMPONENT OR POPUP WINDOW)
 */
