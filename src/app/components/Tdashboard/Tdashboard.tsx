@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from 'react'
+import List from '../List/List'
 
 function Tdashboard({role, id}: any) {
   const [teachData, setTeacherData] = useState()
-  const [classData, setClassData] = useState()
+  const [classData, setClassData] = useState<any>()
   
   useEffect(() => {
     Promise.all([
@@ -13,12 +14,16 @@ function Tdashboard({role, id}: any) {
     ])
     .then((res) => Promise.all(res.map(r => r.json())))
     .then((res) => {
-      console.log(res)
+      // console.log(res)
       setTeacherData(res[0])
       setClassData(res[1])
     })
     
   }, [])
+
+  useEffect(() => {
+    console.log(classData)
+  },[classData])
 
   return (
     <div className='grid grid-cols-3 gap-0.5 my-1'>
@@ -26,7 +31,7 @@ function Tdashboard({role, id}: any) {
           <h1>{`Welcome ${role}`}</h1>
         </section>
         <section className='border-black border-2 rounded h-10 col-span-2'>
-          <h1 className='border-b-2 border-black w-1/2'>Classes</h1>
+          <List data={classData}/>
         </section>
     </div>
   )
