@@ -10,7 +10,7 @@ function Nav() {
   const {data: session } = useSession()
   const pathname = usePathname()
   return (
-    <nav className='p-1 border-black border-2 rounded h-full w-full'>
+    <nav className='p-1 bg-white rounded h-full w-full'>
       <div>
         { session ? <Link href={'/dashboard'}>Reeg.</Link> : <Link href={'/'}>Reeg.</Link>}
         <ul className='flex'>

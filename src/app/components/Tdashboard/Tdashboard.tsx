@@ -27,10 +27,10 @@ function Tdashboard({role, id}: any) {
 
   return (
     <div className='grid grid-cols-3 gap-0.5 my-1'>
-        <section className='border-black border-2 rounded'>
-          <h1>{`Welcome ${role}`}</h1>
+        <section className='rounded bg-white h-fit p-4'>
+          <h1 className=''>{`Welcome, ${role}`}</h1>
         </section>
-        <section className='border-black border-2 rounded h-10 col-span-2'>
+        <section className='bg-white rounded col-span-2'>
           <List data={classData}/>
         </section>
     </div>
