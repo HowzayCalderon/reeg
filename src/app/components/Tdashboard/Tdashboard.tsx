@@ -2,6 +2,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import List from '../List/List'
+import Nav from '../Navbar/Nav'
 
 function Tdashboard({role, id}: any) {
   const [teachData, setTeacherData] = useState()
@@ -26,12 +27,12 @@ function Tdashboard({role, id}: any) {
   },[classData])
 
   return (
-    <div className='grid grid-cols-3 gap-0.5 my-1'>
+    <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
+        <section className="row-span-full">
+          <Nav/>
+        </section>
         <section className='rounded bg-white h-fit p-4'>
           <h1 className=''>{`Welcome, ${role}`}</h1>
-        </section>
-        <section className='bg-white rounded col-span-2'>
-          <List data={classData}/>
         </section>
     </div>
   )
