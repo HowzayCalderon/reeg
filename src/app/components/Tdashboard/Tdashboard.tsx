@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from 'react'
-import List from '../List/List'
+
 import Nav from '../Navbar/Nav'
 
 function Tdashboard({role, id}: any) {

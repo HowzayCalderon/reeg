@@ -16,7 +16,7 @@ function List({data}: {data: Array<classData>}) {
         <section className='mb-2'>
             {data ? data.map((clas:classData) => {
                 return (
-                    <aside>
+                    <aside key={clas.id}>
                         <h1 className='hover:bg-slate-200 px-2 cursor-pointer border-b-2 border-b-slate-200'>{clas.classname}</h1>
                     </aside>
                 )

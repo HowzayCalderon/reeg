@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { subject: string }}){
             setQuestions(data)
             console.log(data)
         })
-    },[])
+    })
 
 
     return (
