@@ -23,7 +23,7 @@ function List({data}: {data: Array<classData>}) {
                 return (
                     <ListItem className={clas.classname}/>
                 )
-            }) : "Loading..."}
+            }) : null}
         </section>: null
         }
     </>
