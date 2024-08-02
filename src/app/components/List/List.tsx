@@ -1,5 +1,7 @@
 import React from 'react'
 import ListItem from './ListItem'
+import ListTitle from './ListTitle'
+import { useState } from 'react'
 
 interface classData {
     classname: string,
@@ -11,18 +13,19 @@ interface classData {
 
 
 function List({data}: {data: Array<classData>}) {
+  const [listStatus, setListStatus] = useState<boolean>(false)  
   return (
     <>
-        <h1 className='border-b-2 border-b-black w-1/2 mb-4 px-2'>Classes</h1>
+        <ListTitle Title='Classes' setter={setListStatus} status={listStatus}/>
+        {listStatus ? 
         <section className='mb-2'>
             {data ? data.map((clas:classData) => {
                 return (
-                    <aside key={clas.id}>
-                        <h1 className='hover:bg-slate-200 px-2 cursor-pointer border-b-2 border-b-slate-200'>{clas.classname}</h1>
-                    </aside>
+                    <ListItem className={clas.classname}/>
                 )
-            }) : null}
-        </section>
+            }) : "Loading..."}
+        </section>: null
+        }
     </>
   )
 }

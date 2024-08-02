@@ -6,9 +6,9 @@ interface Props {
 
 function ListItem({className}: Props) {
   return (
-    <div>
-        <p>{className}</p>
-    </div>
+    <aside>
+        <p onClick={() => {}}>{className}</p>
+    </aside>
   )
 }
 

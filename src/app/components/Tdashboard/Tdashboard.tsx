@@ -29,7 +29,7 @@ function Tdashboard({role, id}: any) {
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
         <section className="row-span-full">
-          <Nav/>
+          <Nav classD={classData}/>
         </section>
         <section className='rounded bg-white h-fit p-4'>
           <h1 className=''>{`Welcome, ${role}`}</h1>
