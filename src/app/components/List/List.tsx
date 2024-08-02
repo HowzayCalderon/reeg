@@ -1,4 +1,5 @@
 import React from 'react'
+import ListItem from './ListItem'
 
 interface classData {
     classname: string,
@@ -28,9 +29,3 @@ function List({data}: {data: Array<classData>}) {
 
 export default List
 
-/* 
-    CONSIDER ADDING CLASSES TO THE NAVBAR, WHEN TEACHER CLICKS ON 
-    SPECIFIC CLASS IT TAKES THEM CLASS SPECIFIC DASHBOARD THAT SHOWS
-    CHART OF CLASS PROGRESS, THEN MAKE EACH STUDENT AN OPTION TO CLICK ON
-    THAT SHOWS THEIR PROGRESS AND STANDINGS ON A CHART
-*/
