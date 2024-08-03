@@ -21,7 +21,7 @@ function List({data}: {data: Array<classData>}) {
         <section>
             {data ? data.map((clas:classData) => {
                 return (
-                    <ListItem className={clas.classname}/>
+                    <ListItem key={clas.classname} className={clas.classname}/>
                 )
             }) : null}
         </section>: null
