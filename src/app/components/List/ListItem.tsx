@@ -7,9 +7,9 @@ interface Props {
 
 function ListItem({className}: Props) {
   return (
-    <aside>
-        <Link href={`http://localhost:3000/dashboard/${className}`}>{className}</Link>
-    </aside>
+    <Link className='w-full'href={`http://localhost:3000/dashboard/teacher/${className}`}>
+        <p>{className}</p>
+    </Link>
   )
 }
 
