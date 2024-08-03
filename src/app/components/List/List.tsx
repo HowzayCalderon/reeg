@@ -15,10 +15,10 @@ interface classData {
 function List({data}: {data: Array<classData>}) {
   const [listStatus, setListStatus] = useState<boolean>(false)  
   return (
-    <>
+    <section className='h-48'>
         <ListTitle Title='Classes' setter={setListStatus} status={listStatus}/>
         {listStatus ? 
-        <section className='mb-2'>
+        <section>
             {data ? data.map((clas:classData) => {
                 return (
                     <ListItem className={clas.classname}/>
@@ -26,7 +26,7 @@ function List({data}: {data: Array<classData>}) {
             }) : null}
         </section>: null
         }
-    </>
+    </section>
   )
 }
 

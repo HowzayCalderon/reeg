@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 interface Props {
     className: string,
@@ -7,7 +8,7 @@ interface Props {
 function ListItem({className}: Props) {
   return (
     <aside>
-        <p onClick={() => {}}>{className}</p>
+        <Link href={`http://localhost:3000/dashboard/${className}`}>{className}</Link>
     </aside>
   )
 }

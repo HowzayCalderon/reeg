@@ -40,16 +40,15 @@ function Tdashboard({role, id}: any) {
 
 export default Tdashboard
 
-/* 
-  FIND A WAY TO SPLIT THE DATA RETURNED FROM THE PROMISE.ALL() FOR EASE OF
-  USE
-
-  **** CREATE COMPONENT FOR CLASSLIST (HAMBURGER COMPONENT OR POPUP WINDOW)
-*/
 
 /* 
     CONSIDER ADDING CLASSES TO THE NAVBAR, WHEN TEACHER CLICKS ON 
     SPECIFIC CLASS IT TAKES THEM CLASS SPECIFIC DASHBOARD THAT SHOWS
     CHART OF CLASS PROGRESS, THEN MAKE EACH STUDENT AN OPTION TO CLICK ON
     THAT SHOWS THEIR PROGRESS AND STANDINGS ON A CHART
+*/
+
+/* 
+  Classes added to Navbar, Still need to make each class link direct user to 
+  class dashboard when clicked and eventually create dynamic pages for classes
 */
