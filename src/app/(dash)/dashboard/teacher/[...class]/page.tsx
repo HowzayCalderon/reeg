@@ -12,7 +12,7 @@ interface classInformation {
   students: []
 }
 
-function page({params}: {params: {class: string}}) {
+function Page({params}: {params: {class: string}}) {
   const {data: session} = useSession({
     required: true,
     onUnauthenticated(){
@@ -38,4 +38,4 @@ useEffect(()=>{
   )
 }
 
-export default page
+export default Page
