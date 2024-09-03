@@ -52,3 +52,9 @@ export default Tdashboard
   Classes added to Navbar, Still need to make each class link direct user to 
   class dashboard when clicked and eventually create dynamic pages for classes
 */
+
+/* 
+  Created dynamic pages, having trouble when refreshing page, the session
+  user id does not get added to the fetch call so nothing is returned after
+  refresh, also need to create components and chart for class dashboard
+*/

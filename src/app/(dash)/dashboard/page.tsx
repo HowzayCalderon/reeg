@@ -23,8 +23,3 @@ const page = async () => {
 
 export default page
 
-/*
-  
-  consider creating two different layout components to clean up dashboard
-  code. one for teachers and students
- */
