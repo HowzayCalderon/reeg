@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from 'react'
-
+import { classContext } from '../../../context'
 import Nav from '../Navbar/Nav'
 
 function Tdashboard({role, id}: any) {
-  const [teachData, setTeacherData] = useState()
   const [classData, setClassData] = useState<any>()
+  const [teachData, setTeacherData] = useState()
   
   useEffect(() => {
     Promise.all([
@@ -26,14 +26,17 @@ function Tdashboard({role, id}: any) {
     console.log(classData)
   },[classData])
 
+
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
+      <classContext.Provider value={classData}>
         <section className="row-span-full">
-          <Nav classD={classData}/>
+          <Nav/>
         </section>
         <section className='rounded bg-white h-fit p-4'>
           <h1 className=''>{`Welcome, ${role}`}</h1>
         </section>
+      </classContext.Provider>
     </div>
   )
 }
