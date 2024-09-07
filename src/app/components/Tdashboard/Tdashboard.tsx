@@ -1,42 +1,17 @@
 'use client'
 import React from 'react'
-import { useEffect, useState } from 'react'
-import { classContext } from '../../../context'
 import Nav from '../Navbar/Nav'
 
-function Tdashboard({role, id}: any) {
-  const [classData, setClassData] = useState<any>()
-  const [teachData, setTeacherData] = useState()
-  
-  useEffect(() => {
-    Promise.all([
-      fetch(`http://localhost:3000/api/teacher/find?id=${id}`),
-      fetch(`http://localhost:3000/api/class/classes?id=${id}`)
-    ])
-    .then((res) => Promise.all(res.map(r => r.json())))
-    .then((res) => {
-      // console.log(res)
-      setTeacherData(res[0])
-      setClassData(res[1])
-    })
-    
-  }, [])
-
-  useEffect(() => {
-    console.log(classData)
-  },[classData])
-
+function Tdashboard({role}: any) {
 
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
-      <classContext.Provider value={classData}>
         <section className="row-span-full">
           <Nav/>
         </section>
         <section className='rounded bg-white h-fit p-4'>
           <h1 className=''>{`Welcome, ${role}`}</h1>
         </section>
-      </classContext.Provider>
     </div>
   )
 }

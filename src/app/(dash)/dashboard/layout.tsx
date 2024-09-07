@@ -1,4 +1,4 @@
-import Nav from "@/components/Navbar/Nav"
+
 
 interface Components {
     children: React.ReactNode
