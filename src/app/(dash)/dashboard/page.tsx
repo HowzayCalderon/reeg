@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import Sdashboard from '@/components/Sdashboard/Sdashboard'
 import Tdashboard from '@/components/Tdashboard/Tdashboard'
 
-const page = () => {
+const Page = () => {
   const {data: session} = useSession({
     required: true,
     onUnauthenticated(){
@@ -21,5 +21,5 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
 
