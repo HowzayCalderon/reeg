@@ -1,17 +1,45 @@
 'use client'
 import React from 'react'
 import Nav from '../Navbar/Nav'
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
+import { classContext } from '../../../context'
 
 function Tdashboard({role}: any) {
+  const {data: session} = useSession({
+    required: true,
+    onUnauthenticated(){
+      redirect('/')
+    }
+  })
+
+  const [classData, setClassData] = useState<any>(false)
+  const [teachData, setTeacherData] = useState()
+
+    useEffect(() => {
+      Promise.all([
+        fetch(`http://localhost:3000/api/teacher/find?id=${session?.user.id}`),
+        fetch(`http://localhost:3000/api/class/classes?id=${session?.user.id}`)
+      ])
+      .then((res) => Promise.all(res.map(r => r.json())))
+      .then((res) => {
+        setTeacherData(res[0])
+        setClassData(res[1])
+      })
+      
+    },[])
 
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
+      <classContext.Provider value={classData}>
         <section className="row-span-full">
-          <Nav/>
+          <Nav listOff={false}/>
         </section>
         <section className='rounded bg-white h-fit p-4'>
           <h1 className=''>{`Welcome, ${role}`}</h1>
         </section>
+      </classContext.Provider>
     </div>
   )
 }

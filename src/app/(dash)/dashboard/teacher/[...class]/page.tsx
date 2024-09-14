@@ -22,7 +22,7 @@ function Page({params}: {params: {class: string}}) {
     }
   })
 
-const [classInfo, setClassInfo] = useState<[classInformation]| void>()
+  const [classInfo, setClassInfo] = useState<[classInformation]| void>();
 
 useEffect(()=>{
   fetch(`http://localhost:3000/api/class/class?name=${params.class}&id=${session?.user?.id}`)
@@ -31,10 +31,10 @@ useEffect(()=>{
     console.log(ponse);
     setClassInfo(ponse);
   })
-},[])
+})
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
-      <Nav/>
+      <Nav listOff={true}/>
       {params.class}
       hello
     </div>

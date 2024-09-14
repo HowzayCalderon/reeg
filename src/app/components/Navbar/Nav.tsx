@@ -4,11 +4,13 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import List from '../List/List'
 import { classContext } from '../../../context'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 
-function Nav() {
+function Nav({listOff}:{listOff: boolean}) {
   const {data: session } = useSession()
+  const [removeList, setRemoveList] = useState<boolean>(listOff);
   const classes = useContext(classContext)
 
   return (
@@ -17,7 +19,7 @@ function Nav() {
         <aside className='mb-4'>
           { session ? <Link href={'/dashboard'}>Reeg.</Link> : <Link href={'/'}>Reeg.</Link>}
         </aside>
-        <List data={classes}/>
+       {removeList ? null : <List data={classes}/>} 
         <div className=''>
           {session ? <Link href={'/api/auth/signout?callbackUrl=/'}>Sign Out</Link> :  null}
         </div>
