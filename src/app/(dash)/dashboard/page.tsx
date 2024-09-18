@@ -15,7 +15,7 @@ const Page = () => {
   
   return (
     <>
-      {session?.user?.role == "Student" ? <Sdashboard /> :  <Tdashboard role={session?.user.role} id={status === "authenticated" ? session.user.id : null}/>}
+      {session?.user?.role == "Student" ? <Sdashboard /> :  <Tdashboard role={session?.user.role} id={session?.user.id}/>}
     </>
 
   )

@@ -1,6 +1,7 @@
 import './globals.css'
 import Nav from './components/Navbar/Nav';
 import Authprovider from './components/Authprovider';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'reeg',
@@ -16,11 +17,11 @@ export default function RootLayout({
 }: Components) {
   return (
     <html lang="en">
+        {/* <body> */}
       <Authprovider>
-        <body>
             {children}
-        </body>
       </Authprovider>
+        {/* </body> */}
     </html>
   )
 }
