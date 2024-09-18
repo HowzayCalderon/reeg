@@ -7,23 +7,23 @@ import { classContext } from '../../../context'
 function Tdashboard({role, id}:{role:unknown|string, id:unknown|string}) {
 
   const [classData, setClassData] = useState<{}[]|void>()
-  const [teachData, setTeacherData] = useState<{}|void>()
-  const [idCheck, setIdCheck] = useState(id)
+  const [teachData, setTeacherData] = useState<{}|void>({})
 
     useEffect(() => {
         fetch(`/api/teacher/find?id=${id}`)
         .then((res) => res.json())
         .then((data)=> setTeacherData(data))
         .catch((error) => console.log(error))
-        // fetch(`http://localhost:3000/api/class/classes?id=${session?.user.id}`)
-        // .then((res) => {res.json()})
-        // .then((res)=>{setClassData(res);})
-        // .catch((error)=>{console.log(error)})
 
-    },[idCheck])
+        fetch(`http://localhost:3000/api/class/classes?id=${id}`)
+        .then((res) => res.json())
+        .then((res)=>{setClassData(res);})
+        .catch((error)=>{console.log(error)})
+
+    },[])
 
     useEffect(()=>{
-      teachData ? console.log(teachData): console.log('nope')
+      teachData ? console.log(teachData, classData): console.log('nope')
     },[teachData])
 
   return (

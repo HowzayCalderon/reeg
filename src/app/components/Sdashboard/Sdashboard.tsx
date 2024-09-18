@@ -1,10 +1,5 @@
 import Link from "next/link"
 
-interface props {
-    username: String | null | undefined,
-    role: String,
-    id: String
-}
 
 function Sdashboard(){
 
