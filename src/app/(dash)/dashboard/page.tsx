@@ -6,7 +6,7 @@ import Sdashboard from '@/components/Sdashboard/Sdashboard'
 import Tdashboard from '@/components/Tdashboard/Tdashboard'
 
 const Page = () => {
-  const {data: session} = useSession({
+  const {data: session, status} = useSession({
     required: true,
     onUnauthenticated(){
       redirect('/')
@@ -15,7 +15,7 @@ const Page = () => {
   
   return (
     <>
-      {session?.user?.role == "Student" ? <Sdashboard /> :  <Tdashboard role={session?.user.role}/>}
+      {session?.user?.role == "Student" ? <Sdashboard /> :  <Tdashboard role={session?.user.role} id={status === "authenticated" ? session.user.id : null}/>}
     </>
 
   )

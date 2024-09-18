@@ -2,33 +2,31 @@
 import React from 'react'
 import Nav from '../Navbar/Nav'
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
 import { classContext } from '../../../context'
 
-function Tdashboard({role}: any) {
-  const {data: session} = useSession({
-    required: true,
-    onUnauthenticated(){
-      redirect('/')
-    }
-  })
+function Tdashboard({role, id}:{role:unknown|string, id:unknown|string}) {
 
-  const [classData, setClassData] = useState<any>(false)
-  const [teachData, setTeacherData] = useState()
+  const [classData, setClassData] = useState<{}[]|void>()
+  const [teachData, setTeacherData] = useState<{}|void>()
 
     useEffect(() => {
-      Promise.all([
-        fetch(`http://localhost:3000/api/teacher/find?id=${session?.user.id}`),
-        fetch(`http://localhost:3000/api/class/classes?id=${session?.user.id}`)
-      ])
-      .then((res) => Promise.all(res.map(r => r.json())))
-      .then((res) => {
-        setTeacherData(res[0])
-        setClassData(res[1])
-      })
-      
+      if(id){
+        fetch(`/api/teacher/find?id=${id}`)
+        .then((res) => res.json())
+        .then((data)=> setTeacherData(data))
+        .catch((error) => console.log(error))
+
+      }
+        // fetch(`http://localhost:3000/api/class/classes?id=${session?.user.id}`)
+        // .then((res) => {res.json()})
+        // .then((res)=>{setClassData(res);})
+        // .catch((error)=>{console.log(error)})
+
     },[])
+
+    useEffect(()=>{
+      teachData ? console.log(teachData): console.log('nope')
+    },[teachData])
 
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
