@@ -23,15 +23,21 @@ function Page({params}: {params: {class: string}}) {
   })
 
   const [classInfo, setClassInfo] = useState<[classInformation]| void>();
+  const [authCheck, setAuthCheck] = useState<boolean>(false);
 
+  if(session?.user.id !== undefined && authCheck == false){
+    setAuthCheck(true)
+  }
 useEffect(()=>{
   fetch(`http://localhost:3000/api/class/class?name=${params.class}&id=${session?.user?.id}`)
-  .then((res) => {res.json()})
+  .then((res) => res.json())
   .then((ponse)=> {
-    console.log(ponse);
+    console.log(ponse)
     setClassInfo(ponse);
   })
-})
+},[authCheck])
+
+
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
       <Nav listOff={true}/>
@@ -42,3 +48,5 @@ useEffect(()=>{
 }
 
 export default Page
+
+// consider adding a class performance row to database, remove any uneccesary computation from client side code
