@@ -17,11 +17,11 @@ export default function RootLayout({
 }: Components) {
   return (
     <html lang="en">
-        {/* <body> */}
-      <Authprovider>
+        <body>
+          <Authprovider>
             {children}
-      </Authprovider>
-        {/* </body> */}
+          </Authprovider>
+        </body>
     </html>
   )
 }

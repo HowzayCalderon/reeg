@@ -7,7 +7,12 @@ import { classContext } from '../../../context'
 function Tdashboard({role, id}:{role:unknown|string, id:unknown|string}) {
 
   const [classData, setClassData] = useState<{}[]|void>()
-  const [teachData, setTeacherData] = useState<{}|void>({})
+  const [teachData, setTeacherData] = useState<{}|void>()
+  const [userData, setUserData] = useState<boolean>(false)
+
+  if(id !== undefined && userData == false){
+    setUserData(true)
+  }
 
     useEffect(() => {
         fetch(`/api/teacher/find?id=${id}`)
@@ -20,11 +25,7 @@ function Tdashboard({role, id}:{role:unknown|string, id:unknown|string}) {
         .then((res)=>{setClassData(res);})
         .catch((error)=>{console.log(error)})
 
-    },[])
-
-    useEffect(()=>{
-      teachData ? console.log(teachData, classData): console.log('nope')
-    },[teachData])
+    },[userData])
 
   return (
     <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
