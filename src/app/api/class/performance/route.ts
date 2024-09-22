@@ -12,7 +12,15 @@ export async function GET(request:NextRequest) {
             }, include: {
                 students: {
                     select: {
-                        performance: true 
+                        performance: {
+                            include: {
+                                topic: {
+                                    select: {
+                                        name: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
