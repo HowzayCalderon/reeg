@@ -5,15 +5,22 @@ export async function GET(request:NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams
         const classId:URLSearchParams|string|null = searchParams.get('classId')
-        let resMessage:{} ={}
-        const performance = await prisma.topicPerformance.findMany({
+        let resMessage:any = {}
+        const performance = await prisma.class.findUnique({
             where: {
-                student: {classId: Number(classId)}
+                id: Number(classId)
+            }, include: {
+                students: {
+                    select: {
+                        performance: true 
+                    }
+                }
             }
         }).then((data) => {
+            console.log(data)
             resMessage = JSON.stringify(data)
         })
-        return new Response("Success",resMessage)
+        return new Response(resMessage)
         
     } catch (error:any) {
         const resOptions = {status: 400, statusText: 'failed'}
