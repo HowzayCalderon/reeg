@@ -25,7 +25,12 @@ export async function GET(request:NextRequest) {
                 }
             }
         }).then((data) => {
-            console.log(data)
+            // console.log(data?.students[0].performance)
+            let performances:undefined|{} = data?.students[0].performance
+            let results:{};
+            for(const key in performances){
+                
+            }
             resMessage = JSON.stringify(data)
         })
         return new Response(resMessage)
