@@ -13,24 +13,41 @@ export async function GET(request:NextRequest) {
                 students: {
                     select: {
                         performance: {
-                            include: {
-                                topic: {
-                                    select: {
-                                        name: true
-                                    }
-                                }
+                            select: {
+                                topic: true,
+                                percentage: true
                             }
+                            // include: {
+                            //     topic: {
+                            //         select: {
+                            //             name: true
+                            //         }
+                            //     }
+                            // }
                         }
                     }
                 }
             }
         }).then((data) => {
-            // console.log(data?.students[0].performance)
-            let performances:undefined|{} = data?.students[0].performance
-            let results:{};
-            for(const key in performances){
-                
-            }
+            // let performances:boolean = true;
+            // // data?.students[0].performance
+            // // use while loop, each object has a # index, place a property inside performances to signal a stop for while loop
+            // let count:number=0
+            // let top:string|undefined;
+            // while(performances){
+            //     console.log('1st');
+            //     if(data?.students[0].performance[count]){
+            //         console.log('2nd')
+            //         if(data?.students[0].performance[count].percentage! < 60){
+            //             console.log('3rd');
+            //             top = data?.students[0].performance[count].topic.name
+            //             console.log(top)
+            //             count++
+            //             continue;
+            //         }
+            //     }
+            //     return;
+            // }
             resMessage = JSON.stringify(data)
         })
         return new Response(resMessage)
