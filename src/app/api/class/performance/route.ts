@@ -17,38 +17,33 @@ export async function GET(request:NextRequest) {
                                 topic: true,
                                 percentage: true
                             }
-                            // include: {
-                            //     topic: {
-                            //         select: {
-                            //             name: true
-                            //         }
-                            //     }
-                            // }
+                            
                         }
                     }
                 }
             }
         }).then((data) => {
-            // let performances:boolean = true;
-            // // data?.students[0].performance
-            // // use while loop, each object has a # index, place a property inside performances to signal a stop for while loop
-            // let count:number=0
-            // let top:string|undefined;
-            // while(performances){
-            //     console.log('1st');
-            //     if(data?.students[0].performance[count]){
-            //         console.log('2nd')
-            //         if(data?.students[0].performance[count].percentage! < 60){
-            //             console.log('3rd');
-            //             top = data?.students[0].performance[count].topic.name
-            //             console.log(top)
-            //             count++
-            //             continue;
-            //         }
-            //     }
-            //     return;
-            // }
-            resMessage = JSON.stringify(data)
+            const ref = data?.students[0].performance
+            let myMap = new Map<string, number>()
+            // stores results
+            let arr:{}[]= [];
+            // removes any topic above 60% 
+            for(let x=0; x<ref?.length!; x++){
+                if(data?.students[0].performance[x].percentage! > 60){
+                    continue
+                }
+                else if(!myMap.has(data?.students[0].performance[x].topic.name!)){
+                    myMap.set(data?.students[0].performance[x].topic.name!, 1)
+                }else{
+                    myMap.set(data?.students[0].performance[x].topic.name!, myMap.get(data?.students[0].performance[x].topic.name!)! + 1)
+                }
+            }
+            
+            myMap.forEach((item,key) =>{
+                arr.push({key,item})
+            })
+            
+            resMessage = JSON.stringify(arr)
         })
         return new Response(resMessage)
         
