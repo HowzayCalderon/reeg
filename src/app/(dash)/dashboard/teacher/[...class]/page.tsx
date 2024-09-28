@@ -4,6 +4,7 @@ import Nav from '@/components/Navbar/Nav';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Histogram from '@/components/Histogram/Histogram';
 
 
 interface classInformation {
@@ -22,6 +23,8 @@ function Page({params}: {params: {class: string}}) {
     }
   })
 
+
+
   const [classInfo, setClassInfo] = useState<[classInformation]| void>();
   const [authCheck, setAuthCheck] = useState<boolean>(false);
 
@@ -39,10 +42,14 @@ useEffect(()=>{
 
 
   return (
-    <div className='h-full grid grid-cols-4 gap-0.5 my-1'>
-      <Nav listOff={true}/>
+    <div className='h-full grid grid-cols-5 grid-rows-4 gap-0.5 my-1'>
+      <section className='row-span-4'>
+        <Nav listOff={true}/>
+      </section>
       {params.class}
-      hello
+      <section className='col-[2_/span_5] '>
+        <Histogram/>
+      </section>
     </div>
   )
 }

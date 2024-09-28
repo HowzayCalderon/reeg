@@ -10,6 +10,7 @@ function Tdashboard({role, id}:{role:unknown|string, id:unknown|string}) {
   const [teachData, setTeacherData] = useState<{}|void>()
   const [userData, setUserData] = useState<boolean>(false)
 
+  // checks if authentication finished
   if(id !== undefined && userData == false){
     setUserData(true)
   }
