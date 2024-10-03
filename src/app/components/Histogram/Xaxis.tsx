@@ -6,7 +6,7 @@ const Xaxis = () => {
         const ticks = useMemo(() => {
           const xScale = d3.scaleLinear()
             .domain([0, 100])
-            .range([10, 290])
+            .range([10, 1000])
       
           return xScale.ticks()
             .map(value => ({
@@ -14,11 +14,15 @@ const Xaxis = () => {
               xOffset: xScale(value)
             }))
         }, [])
-      
+        // INPUT CLASS DATA, DOMAIN REQUIRES CLASS TOPICS
+        const bars = d3.scaleBand()
+            .domain()
+
+    
         return (
           <svg className="w-full">
             <path
-              d="M 9.5 0.5 H 290.5"
+              d="M 9.5 0.5 H 1000"
               stroke="currentColor"
             />
             {ticks.map(({ value, xOffset }) => (

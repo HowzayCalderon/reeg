@@ -47,7 +47,7 @@ useEffect(()=>{
         <Nav listOff={true}/>
       </section>
       {params.class}
-      <section className='col-[2_/span_5] '>
+      <section className='col-[2_/span_5] row-start-4 bg-white h-fit'>
         <Histogram/>
       </section>
     </div>
@@ -56,4 +56,4 @@ useEffect(()=>{
 
 export default Page
 
-// consider adding a class performance row to database, remove any uneccesary computation from client side code
+// CREATE CONTEXT FOR CLASS DATA
