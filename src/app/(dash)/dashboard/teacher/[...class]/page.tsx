@@ -1,11 +1,11 @@
 'use client'
-import React, { useContext } from 'react';
+import React, { useContext, createContext } from 'react';
 import Nav from '@/components/Navbar/Nav';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Histogram from '@/components/Histogram/Histogram';
-
+import { performanceContext } from '../../../../../context';
 
 interface classInformation {
   id: number,
@@ -47,9 +47,12 @@ useEffect(()=>{
         <Nav listOff={true}/>
       </section>
       {params.class}
-      <section className='col-[2_/span_5] row-start-4 bg-white h-fit'>
-        <Histogram/>
-      </section>
+      <performanceContext.Provider value={classInfo}>
+        <section className='col-[2_/span_5] row-start-4 bg-white h-fit'>
+          <Histogram/>
+        </section>
+
+      </performanceContext.Provider>
     </div>
   )
 }
