@@ -59,7 +59,7 @@ useEffect(()=>{
       </section>
       {params.class}
       <performanceContext.Provider value={performance}>
-        <section className='col-[2_/span_5] row-start-4 bg-white h-fit'>
+        <section className='col-[2_/span_5] row-start-2 row-span-full bg-white h-fit'>
           <Histogram/>
         </section>
       </performanceContext.Provider>

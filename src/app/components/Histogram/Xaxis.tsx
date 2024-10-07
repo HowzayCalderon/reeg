@@ -1,52 +1,25 @@
 import { useMemo, useContext } from "react"
-import * as d3 from 'd3'
+import {scaleBand,scaleLinear} from 'd3'
 import { performanceContext } from "../../../context"
 
 
 const Xaxis = () => {
     const data = useContext(performanceContext)
-        const ticks = useMemo(() => {
-          const xScale = d3.scaleLinear()
-            .domain([0, 100])
-            .range([10, 1000])
-      
-          return xScale.ticks()
-            .map(value => ({
-              value,
-              xOffset: xScale(value)
-            }))
-        }, [])
-        // INPUT CLASS DATA, DOMAIN REQUIRES CLASS TOPICS
-        const bars = d3.scaleBand()
-            // .domain(data.map((d:any) => d['key']))
 
-        console.log(data)
+    const width = 1000;
+    const height = 500;
+        
+    const yScale = scaleBand()
+    .domain(!data ? [] : data.map((d:any)=> d['key']))
+    .range([0,height])
+
+    const xScale = scaleLinear()
+    .domain([0,60])
+    .range([0,width])
+
         return (
-          <svg className="w-full">
-            <path
-              d="M 9.5 0.5 H 1000"
-              stroke="currentColor"
-            />
-            {ticks.map(({ value, xOffset }) => (
-              <g
-                key={value}
-                transform={`translate(${xOffset}, 0)`}
-              >
-                <line
-                  y2="6"
-                  stroke="currentColor"
-                />
-                <text
-                  key={value}
-                  style={{
-                    fontSize: "10px",
-                    textAnchor: "middle",
-                    transform: "translateY(20px)"
-                  }}>
-                  { value }
-                </text>
-              </g>
-            ))}
+          <svg width={width} height={height}>
+            {data?.map((d:any) =>  (<rect x={0} y={yScale(d['key'])} width={60} height={yScale.bandwidth()} key={d['key']}/>))}
           </svg>
         )
 }
