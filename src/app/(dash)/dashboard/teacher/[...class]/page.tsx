@@ -23,10 +23,9 @@ function Page({params}: {params: {class: string}}) {
     }
   })
 
-
-
-  const [classInfo, setClassInfo] = useState<[classInformation]| void>();
+  const [classInfo, setClassInfo] = useState<classInformation| void>();
   const [authCheck, setAuthCheck] = useState<boolean>(false);
+  const [performance, setPerformance] = useState<{}>()
 
   if(session?.user.id !== undefined && authCheck == false){
     setAuthCheck(true)
@@ -38,7 +37,19 @@ useEffect(()=>{
     console.log(ponse)
     setClassInfo(ponse);
   })
+
 },[authCheck])
+
+useEffect(()=>{
+  if(classInfo){
+    fetch(`http://localhost:3000/api/class/performance?classId=${classInfo?.id}`)
+    .then((res)=> res.json())
+    .then((res)=>{
+      console.log(res);
+      setPerformance(res);
+    })
+  }
+},[classInfo])
 
 
   return (
@@ -47,11 +58,10 @@ useEffect(()=>{
         <Nav listOff={true}/>
       </section>
       {params.class}
-      <performanceContext.Provider value={classInfo}>
+      <performanceContext.Provider value={performance}>
         <section className='col-[2_/span_5] row-start-4 bg-white h-fit'>
           <Histogram/>
         </section>
-
       </performanceContext.Provider>
     </div>
   )
@@ -59,4 +69,3 @@ useEffect(()=>{
 
 export default Page
 
-// CREATE CONTEXT FOR CLASS DATA

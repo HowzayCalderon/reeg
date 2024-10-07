@@ -1,8 +1,10 @@
-import { useMemo } from "react"
+import { useMemo, useContext } from "react"
 import * as d3 from 'd3'
+import { performanceContext } from "../../../context"
 
 
 const Xaxis = () => {
+    const data = useContext(performanceContext)
         const ticks = useMemo(() => {
           const xScale = d3.scaleLinear()
             .domain([0, 100])
@@ -16,9 +18,9 @@ const Xaxis = () => {
         }, [])
         // INPUT CLASS DATA, DOMAIN REQUIRES CLASS TOPICS
         const bars = d3.scaleBand()
-            .domain()
+            // .domain(data.map((d:any) => d['key']))
 
-    
+        console.log(data)
         return (
           <svg className="w-full">
             <path
